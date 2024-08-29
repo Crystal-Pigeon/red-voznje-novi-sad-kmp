@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -27,10 +28,13 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            api(libs.resources)
+            implementation(libs.resources.test)
             // put your Multiplatform dependencies here
         }
     }
 }
+task("testClasses")
 
 android {
     namespace = "org.kmp.experiment.shared"
@@ -42,4 +46,12 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+}
+
+multiplatformResources {
+    resourcesPackage.set("org.kmp.experiment") // required
+    resourcesClassName.set("SharedRes") // optional, default MR
+    //resourcesVisibility.set(MRVisibility.Internal) // optional, default Public
+    //iosBaseLocalizationRegion.set("en") // optional, default "en"
+    //iosMinimalDeploymentTarget.set("11.0") // optional, default "9.0"
 }
