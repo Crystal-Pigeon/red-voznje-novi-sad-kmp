@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- format: #RRGGBB[AA] or 0xRRGGBB[AA] or RRGGBB[AA] where [AA] - optional -->
+    <color name="orange">#F2A143</color>
+    <color name="background">
+        <light>#FFFFFF</light>
+        <dark>#1F1E1C</dark>
+    </color>
+    <color name="secondary_background">
+        <light>#F9F8F7</light>
+        <dark>#2D2C2B</dark>
+    </color>
+    <color name="tertiary_background">
+        <light>#EDECEB</light>
+        <dark>#424140</dark>
+    </color>
+    <color name="primary_text">
+        <light>#1F1E1C</light>
+        <dark>#FFFFFF</dark>
+    </color>
+    <color name="secondary_text">
+        <light>#AFAEAD</light>
+        <dark>#828180</dark>
+    </color>
+    <color name="line_color">
+        <light>#80AFAEAD</light>
+        <dark>#80828180</dark>
+    </color>
+</resources>
