@@ -33,6 +33,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
         }
+
+        dependencies {
+            implementation(libs.kotlinx.coroutines.android)
+        }
     }
 }
 

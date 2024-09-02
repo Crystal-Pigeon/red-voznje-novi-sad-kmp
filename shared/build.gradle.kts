@@ -30,7 +30,18 @@ kotlin {
         commonMain.dependencies {
             api(libs.resources)
             implementation(libs.resources.test)
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation("com.fleeksoft.ksoup:ksoup-ktor2:0.1.6-alpha1")
             // put your Multiplatform dependencies here
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
