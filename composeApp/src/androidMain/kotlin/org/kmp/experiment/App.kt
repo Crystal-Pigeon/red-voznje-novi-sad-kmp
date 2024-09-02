@@ -21,10 +21,12 @@ import red_voznje_novi_sad_kmp.composeapp.generated.resources.compose_multiplatf
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf<List<BusLine>>(emptyList()) }
+        //var showContent by remember { mutableStateOf<List<BusLine>>(emptyList()) }
+        var showContent by remember { mutableStateOf<String>("") }
         LaunchedEffect(Unit) {
+            //Greeting().getScheduleByLine()
             // Call your suspend function here
-            showContent = Greeting().getBusLines()
+            showContent = Greeting().getScheduleByLine()
         }
         Text(text = showContent.toString())
     }
