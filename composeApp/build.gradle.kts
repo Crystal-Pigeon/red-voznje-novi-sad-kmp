@@ -33,6 +33,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
         }
+
+        dependencies {
+            implementation(libs.kotlinx.coroutines.android)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
+        }
     }
 }
 

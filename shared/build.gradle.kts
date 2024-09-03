@@ -21,6 +21,8 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
+            export("dev.icerock.moko:resources:0.24.2")
+            export("dev.icerock.moko:graphics:0.9.0")
             baseName = "Shared"
             isStatic = true
         }
@@ -30,7 +32,19 @@ kotlin {
         commonMain.dependencies {
             api(libs.resources)
             implementation(libs.resources.test)
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation("com.fleeksoft.ksoup:ksoup-ktor2:0.1.6-alpha1")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
             // put your Multiplatform dependencies here
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -47,6 +61,9 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
 }
+/*dependencies {
+    implementation(libs.ksoup.ktor2.android)
+}*/
 
 multiplatformResources {
     resourcesPackage.set("org.kmp.experiment") // required
