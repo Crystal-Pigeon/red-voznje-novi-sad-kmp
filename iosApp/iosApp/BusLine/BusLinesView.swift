@@ -9,6 +9,11 @@
 import SwiftUI
 import Shared
 
+internal struct BusLineList {
+    var index: Int
+    var name: String
+}
+
 struct BusLineListView: View {
     @Binding var busLines: [BusLineUI]
     
@@ -22,31 +27,17 @@ struct BusLineListView: View {
                 }
         }
         .listStyle(.insetGrouped)
-        .background(Color.white)
     }
 }
 
 struct BusLinesView: View {
     
-    struct BusLineList {
-        var index: Int
-        var name: String
-    }
-    
-    private var pages = [
-        BusLineList(index: 0, name: "Gradski"),
-        BusLineList(index: 1, name: "Prigradski")
-    ]
-    
-    @State private var urbanLines: [BusLineUI] = []
-    @State private var subrbanLines: [BusLineUI] = []
-    
+    // MARK: - State properties
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
     
-    private var underlineWidth: CGFloat {
-        UIScreen.main.bounds.width / CGFloat(pages.count)
-    }
+    @State private var urbanLines: [BusLineUI] = []
+    @State private var subrbanLines: [BusLineUI] = []
     
     private var selectedUrbanLines: [BusLineUI] {
         urbanLines.filter{ $0.isSelected }
@@ -56,14 +47,14 @@ struct BusLinesView: View {
         subrbanLines.filter{ $0.isSelected }
     }
     
-    func fetchLines() {
-        Greeting().getBusLines { busLines, error in
-            if let busLines = busLines {
-                self.urbanLines = busLines.map {
-                    BusLineUI(number: $0.id, name: $0.name)
-                }
-            }
-        }
+    // MARK: - Constants
+    private var pages: [BusLineList] {[
+        BusLineList(index: 0, name: "Gradski"),
+        BusLineList(index: 1, name: "Prigradski")
+    ]}
+    
+    private var underlineWidth: CGFloat {
+        UIScreen.main.bounds.width / CGFloat(pages.count)
     }
 
     // MARK: - Layout
@@ -76,17 +67,18 @@ struct BusLinesView: View {
                         underlineOffset = underlineWidth * CGFloat(page.index)
                     }) {
                         Text(page.name)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color.primary)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.white)
+                            .background(Color.backgroundPrimary)
                             .cornerRadius(0)
                     }
+                    .background(Color.backgroundPrimary)
                 }
             }
             
             Rectangle()
-                .foregroundStyle(.blue)
+                .foregroundStyle(Color.primary)
                 .frame(height: 1)
                 .frame(width: underlineWidth)
                 .offset(x: underlineOffset)
@@ -104,15 +96,28 @@ struct BusLinesView: View {
                 underlineOffset = underlineWidth * CGFloat(newPage)
             }
         }
+        .background(Color.backgroundPrimary)
         .navigationTitle("Linije")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color.black, for: .navigationBar)
         .onAppear {
-            fetchLines()
+            getBusLines()
         }
         .onDisappear {
-            print("Izabrane gradske linije \(self.selectedUrbanLines.map{ $0.number })")
-            print("Izabrane prigradske linije \(self.selectedSubrbanLines.map{ $0.number })")
+            print("Izabrane gradske linije \(self.selectedUrbanLines.map{ $0.id })")
+            print("Izabrane prigradske linije \(self.selectedSubrbanLines.map{ $0.id })")
+        }
+    }
+}
+
+// MARK: - Getting the data
+extension BusLinesView {
+    private func getBusLines() {
+        Greeting().getBusLines { busLines, error in
+            if let busLines = busLines {
+                self.urbanLines = busLines.map {
+                    BusLineUI(response: $0)
+                }
+            }
         }
     }
 }

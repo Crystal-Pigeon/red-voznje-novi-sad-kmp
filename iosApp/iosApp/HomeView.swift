@@ -13,8 +13,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView(content: {
             NavigationLink(destination: BusLinesView()) {
-                Text("Add new bus lines")
-//                Text(Strings().get(id: SharedRes.strings().general_tap_to_add, args: []))
+                Text(SharedRes.strings().general_tap_to_add.localized)
             }
             .navigationTitle("Home")
         })

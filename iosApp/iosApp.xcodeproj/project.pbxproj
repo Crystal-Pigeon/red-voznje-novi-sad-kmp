@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002650562C872755001996F2 /* StringResource+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650552C872755001996F2 /* StringResource+Extension.swift */; };
+		002650592C872C9C001996F2 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650582C872C9C001996F2 /* Color+Extension.swift */; };
 		00FE3B702C81FCE5003EA8C2 /* BusLineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */; };
 		00FE3B722C81FDAB003EA8C2 /* BusLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */; };
 		00FE3B762C81FF1F003EA8C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B752C81FF1F003EA8C2 /* HomeView.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		002650552C872755001996F2 /* StringResource+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringResource+Extension.swift"; sourceTree = "<group>"; };
+		002650582C872C9C001996F2 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineItemView.swift; sourceTree = "<group>"; };
 		00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLinesView.swift; sourceTree = "<group>"; };
 		00FE3B752C81FF1F003EA8C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -38,6 +42,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		002650572C87275D001996F2 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				002650582C872C9C001996F2 /* Color+Extension.swift */,
+				002650552C872755001996F2 /* StringResource+Extension.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		00FE3B6E2C81FCBD003EA8C2 /* BusLine */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +98,7 @@
 			children = (
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				00FE3B752C81FF1F003EA8C2 /* HomeView.swift */,
+				002650572C87275D001996F2 /* Util */,
 				00FE3B6E2C81FCBD003EA8C2 /* BusLine */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -112,6 +126,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
+				002650542C871A1A001996F2 /* Moko Resources */,
 			);
 			buildRules = (
 			);
@@ -173,6 +188,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		002650542C871A1A001996F2 /* Moko Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Moko Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../\" :shared:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.PLATFORM_NAME=\"$PLATFORM_NAME\" \\\n    -Pmoko.resources.CONFIGURATION=\"$CONFIGURATION\" \\\n    -Pmoko.resources.ARCHS=\"$ARCHS\" \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\"\n";
+		};
 		F36B1CEA2AD836FC00CB74D5 /* Compile Kotlin Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -200,6 +234,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				00FE3B702C81FCE5003EA8C2 /* BusLineItemView.swift in Sources */,
+				002650592C872C9C001996F2 /* Color+Extension.swift in Sources */,
+				002650562C872755001996F2 /* StringResource+Extension.swift in Sources */,
 				00FE3B762C81FF1F003EA8C2 /* HomeView.swift in Sources */,
 				00FE3B722C81FDAB003EA8C2 /* BusLinesView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,

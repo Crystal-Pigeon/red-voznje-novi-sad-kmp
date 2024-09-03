@@ -7,51 +7,44 @@
 //
 
 import SwiftUI
+import Shared
 
 struct BusLineUI {
-    let id: String = UUID().uuidString
+    let id: String
     let number: String
     let name: String
     
     var isSelected: Bool = false
-    
-    var spacing: CGFloat {
-        return 8.0
+}
+
+extension BusLineUI {
+    init(response: BusLine) {
+        self.id = response.id
+        self.number = response.name.components(separatedBy: " ").first ?? ""
+        self.name = response.name
     }
-    
-    static var urban = [
-        BusLineUI(number: "7", name: "LIMAN - NOVO NASELJE"),
-        BusLineUI(number: "12", name: "TELEP"),
-        BusLineUI(number: "14", name: "SAJLOVO"),
-        BusLineUI(number: "15", name: "IND. ZONA SEVER")
-    ]
-    
-    static var suburban = [
-        BusLineUI(number: "52", name: "VETERNIK"),
-        BusLineUI(number: "53", name: "FUTOG STARI"),
-        BusLineUI(number: "54", name: "FUTOG GRMEČKA")
-    ]
 }
 
 struct BusLineItemView: View {
     let busLine: BusLineUI
     
     var body: some View {
-        HStack(spacing: busLine.spacing, content: {
+        HStack(spacing: 8, content: {
             Text(busLine.number)
                 .fontWeight(.bold)
-                .foregroundStyle(.blue)
+                .foregroundStyle(Color.primary)
             Text(busLine.name.uppercased())
             Spacer()
             busLine.isSelected ?
             Image(systemName: "checkmark")
-                .foregroundStyle(.blue) : nil
+                .foregroundStyle(Color.primary) : nil
         })
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
+        .background(Color.backgroundPrimary)
     }
 }
 
 #Preview {
-    BusLineItemView(busLine: BusLineUI.urban[0])
+    BusLineItemView(busLine: BusLineUI(id: "52", number: "52", name: "Veternik"))
 }
