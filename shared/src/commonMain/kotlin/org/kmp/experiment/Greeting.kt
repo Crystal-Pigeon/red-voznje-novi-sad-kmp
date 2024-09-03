@@ -20,8 +20,8 @@ class Greeting {
         return "Hello, ${platform.name}!"
     }
 
-    suspend fun getBusLines(): List<BusLine>{
-        val html = ktorClient.getBusLines(area = Area.URBAN, day = DayType.WORKDAY)
+    suspend fun getBusLines(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY): List<BusLine>{
+        val html = ktorClient.getBusLines(area = areaType, day = dayType)
         val document: Document = Ksoup.parse(html)
 
         val options = document.select("select#linija option")
