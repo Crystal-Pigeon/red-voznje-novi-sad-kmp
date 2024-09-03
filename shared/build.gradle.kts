@@ -33,6 +33,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.kotlinx.coroutines.core)
             implementation("com.fleeksoft.ksoup:ksoup-ktor2:0.1.6-alpha1")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
             // put your Multiplatform dependencies here
         }
 
@@ -58,6 +59,9 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
 }
+/*dependencies {
+    implementation(libs.ksoup.ktor2.android)
+}*/
 
 multiplatformResources {
     resourcesPackage.set("org.kmp.experiment") // required

@@ -18,4 +18,15 @@ class KtorClient {
             }
         }.bodyAsText()
     }
+
+    suspend fun getScheduleByLine(area: Area, day: DayType?, line: String, date: String = "2024-09-01"): String{
+        return client.get("http://www.gspns.co.rs/red-voznje/ispis-polazaka"){
+            url{
+                parameters.append("rv", area.id)
+                parameters.append("vaziod", date)
+                parameters.append("dan", day?.id ?: "R")
+                parameters.append("linija[]", line)
+            }
+        }.bodyAsText()
+    }
 }
