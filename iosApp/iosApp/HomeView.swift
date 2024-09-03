@@ -7,12 +7,13 @@
 //
 
 import SwiftUI
+import Shared
 
 struct HomeView: View {
     var body: some View {
         NavigationView(content: {
             NavigationLink(destination: BusLinesView()) {
-                Text("Add bus lines")
+                Text("Add new bus lines")
             }
             .navigationTitle("Home")
         })

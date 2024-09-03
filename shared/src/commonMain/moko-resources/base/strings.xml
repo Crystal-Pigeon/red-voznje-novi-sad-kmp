@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="hello_world">Hello world</string>
+
+    <!-- GENERAL ACTIONS-->
+    <string name="general_save">Save</string>
+    <string name="general_done">Done</string>
+    <string name="general_ok">Ok</string>
+    <string name="general_next">Next</string>
+    <string name="general_cancel">Cancel</string>
+    <string name="general_delete">Delete</string>
+    <string name="general_tap_to_add">Tap to add</string>
+    <string name="general_finish">Finish</string>
+    <string name="general_continue">Continue</string>
+    <string name="general_copy">Copy</string>
+    <string name="general_search">Search</string>
+    <string name="general_update">Update</string>
+    <string name="general_choose_date">Choose date</string>
+    <string name="general_see_more">See more</string>
+    <string name="general_hide">Hide</string>
+    <string name="general_select_all">Select all</string>
+    <string name="general_deselect_all">Deselect all</string>
+    <string name="general_edit">Edit</string>
+    <string name="general_delete_red"><font fgcolor="#FF6655">Delete</font></string>
+    <string name="general_choose_time">Choose time</string>
+    <string name="general_choose_date_time">Choose time and date</string>
+    <string name="general_restart">Restart</string>
+    <string name="general_confirm">Confirm</string>
+
+    <!-- GENERAL OBJECTS-->
+    <string name="general_error">Error</string>
+    <string name="general_details">Details</string>
+    <string name="general_name">Name</string>
+    <string name="general_surname">Surname</string>
+    <string name="general_email">Email</string>
+    <string name="general_phone">Phone Number</string>
+    <string name="general_password">Password</string>
+    <string name="general_current_password">Current Password</string>
+    <string name="general_reset_password">Reset password</string>
+    <string name="general_new_password">New Password</string>
+    <string name="general_confirm_password">Confirm New Password</string>
+    <string name="general_business_name">Business Name</string>
+    <string name="general_address">Address</string>
+    <string name="general_city">City</string>
+    <string name="general_country">Country</string>
+    <string name="general_birthday">Date of Birth</string>
+    <string name="general_user_number">Unique Client\'s Number</string>
+    <string name="general_price">Price</string>
+    <string name="general_role">Role</string>
+    <string name="general_role_admin">Manager</string>
+    <string name="general_role_owner">Owner</string>
+    <string name="general_role_trainer">Trainer</string>
+    <string name="general_calendar">Calendar</string>
+    <string name="general_checkins">Checkins</string>
+    <string name="general_membership">Membership</string>
+    <string name="general_memberships">Memberships</string>
+    <string name="general_new_membership">New membership</string>
+    <string name="general_clients">Clients</string>
+    <string name="general_settings">Settings</string>
+    <string name="general_profile">Profile settings</string>
+    <string name="general_client">Client</string>
+    <string name="general_team">Team</string>
+    <string name="general_employees">Team Members</string>
+    <string name="general_trainers">Trainers</string>
+    <string name="general_program">Program</string>
+    <string name="general_programs">Programs</string>
+    <string name="general_location">Location</string>
+    <string name="general_locations">Locations</string>
+    <string name="general_reports">Reports</string>
+    <string name="general_qr_code">QR Code</string>
+    <string name="general_trainings">Trainings</string>
+    <string name="general_notifications">Notifications</string>
+    <string name="general_edit_user_profile">Edit Client Information</string>
+    <string name="general_groups">Groups</string>
+    <string name="general_date">Date</string>
+    <string name="general_hour">hour</string>
+    <string name="general_day">day</string>
+    <string name="general_days">days</string>
+    <string name="general_month">month</string>
+    <string name="general_training">training</string>
+    <string name="general_person">person</string>
+    <string name="general_optional">(optional)</string>
+    <string name="general_english">English</string>
+    <string name="general_serbian">Serbian</string>
+    <string name="general_rsd">RSD</string>
+    <string name="general_eur">EUR</string>
+    <string name="general_usd">USD</string>
+    <string name="general_menu_icon_description">Menu</string>
+
+    <!-- GENERAL ATTRIBUTES-->
+    <string name="general_from">From</string>
+    <string name="general_to">To</string>
+    <string name="general_starts_from">Start Date</string>
+    <string name="general_start_time">Start Time</string>
+    <string name="general_expires_at">End Date </string>
+    <string name="general_end_time">End Time</string>
+    <string name="general_canceled">Canceled</string>
+    <string name="general_active">Active</string>
+    <string name="general_inactive">Inactive</string>
+    <string name="general_actives">Active</string>
+    <string name="general_inactives">Inactive</string>
+    <string name="general_expiring">Expiring</string>
+    <string name="general_allowed">Allowed</string>
+    <string name="general_not_allowed">Not allowed</string>
+    <string name="general_paid">Paid</string>
+    <string name="general_not_paid">Not paid</string>
+    <string name="general_current">Current</string>
+
+    <!-- GENERAL MESSAGES-->
+    <string name="general_result_success_title">Nicely done!</string>
+    <string name="general_result_error_title">Something went wrong</string>
+    <string name="general_result_error_message">Thank you for your patience! We’ll fix this as soon as possible.</string>
+    <string name="general_no_internet_error">No internet connection found, check your internet settings and try again</string>
+    <string name="general_result_empty_title">No data</string>
+    <string name="general_result_empty_message">Currently, there is no data for the chosen option</string>
+    <string name="general_name_error">Name is a required field</string>
+    <string name="general_surname_error">Surname is a required field</string>
+    <string name="general_email_error">Email is a required field </string>
+    <string name="general_email_error_format">Email is not in a valid form</string>
+    <string name="general_phone_error">Phone number is a required field</string>
+    <string name="general_password_error">Password is a required field</string>
+    <string name="general_password_error_format">Password is not in a valid format</string>
+    <string name="general_password_explanation">Has to contain at least 8 characters including a capital letter, number and non-alphabetical character</string>
+    <string name="general_business_name_error">Business name is a required field</string>
+    <string name="general_address_error">Address is a required field</string>
+    <string name="general_city_error">City is a required field</string>
+    <string name="general_country_error">Country is a required field</string>
+    <string name="general_current_password_error">Current password is a required field</string>
+    <string name="general_new_password_error">New password is a required field</string>
+    <string name="general_confirm_password_error">Confirm password is a required field</string>
+    <string name="general_confirm_password_not_matching_error">Passwords are not matching, please try again.</string>
+    <string name="general_role_error">Role is a required field</string>
+    <string name="general_user_number_error">Client\'s number is a required field</string>
+    <string name="general_location_error">Location is a required field</string>
+    <string name="general_business_name_explanation">Trainer name or business name you and your business are recognized for</string>
+    <string name="general_clients_email_explanation">Your client should use this email when registering for the Skenit: Client app to access all the data you assign to them</string>
+    <string name="general_email_copied">Email is successfully copied</string>
+    <string name="general_result_success_modified_message">Data successfully modified</string>
+    <string name="general_new_version_available">New Version Has Arrived!</string>
+    <string name="general_update_app_message">You should update the app</string>
+    <string name="general_update_app_forced_message">To keep the fun going, make sure to update the app.</string>
+    <string name="general_go_to_play_store">Update the app</string>
+    <string name="general_update_downloaded">Complete the update</string>
+    <string name="general_browser_not_found">The browser on the phone is not enabled!</string>
+    <string name="general_choose_currency">Select currency</string>
+
+    <!-- GENERAL HINTS-->
+    <string name="general_name_hint">John</string>
+    <string name="general_surname_hint">Doe</string>
+    <string name="general_email_hint">john.pt@email.com</string>
+    <string name="general_phone_hint">+18143519366</string>
+    <string name="general_create_password_hint">Pass123!</string>
+    <string name="general_insert_password_hint">********</string>
+    <string name="general_business_name_hint">John\'s Studio</string>
+    <string name="general_address_hint">Flagler Street</string>
+    <string name="general_city_hint">Miami</string>
+    <string name="general_country_hint">USA</string>
+    <string name="general_user_number_hint">4047</string>
+    <string name="general_training_title_hint">HIIT Training</string>
+    <string name="general_write_here_hint">Write here...</string>
+
+    <!-- LOGIN-->
+    <string name="login_forgot_password_action">Forgot your password?</string>
+    <string name="login_action">Log in</string>
+    <string name="login_no_account_label">You don\'t have an account?</string>
+    <string name="login_register_action">Create Business Account</string>
+    <string name="login_privacy_label">By Registering, You Agree to the</string>
+    <string name="login_privacy_action">Privacy Policy</string>
+    <string name="login_invalid_credentials">Access is not possible with entered credentials</string>
+    <string name="login_header_title">Every Coach\'s Key to Entrepreneurial Success</string>
+    <string name="login_header_description">Organize workouts, automate membership fees, track financial reports, and manage your fitness business in a simple and efficient way</string>
+    <string name="login_error_title">Login Failed</string>
+    <string name="login_error_message">Your email or password is incorrect. Please try again.</string>
+
+</resources>

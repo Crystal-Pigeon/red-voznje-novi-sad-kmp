@@ -38,8 +38,8 @@ struct BusLinesView: View {
         BusLineList(index: 1, name: "Prigradski")
     ]
     
-    @State private var urbanLines = BusLineUI.urban
-    @State private var subrbanLines = BusLineUI.suburban
+    @State private var urbanLines: [BusLineUI] = []
+    @State private var subrbanLines: [BusLineUI] = []
     
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
@@ -55,7 +55,18 @@ struct BusLinesView: View {
     private var selectedSubrbanLines: [BusLineUI] {
         subrbanLines.filter{ $0.isSelected }
     }
+    
+    func fetchLines() {
+        Greeting().getBusLines { busLines, error in
+            if let busLines = busLines {
+                self.urbanLines = busLines.map {
+                    BusLineUI(number: $0.id, name: $0.name)
+                }
+            }
+        }
+    }
 
+    // MARK: - Layout
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
@@ -96,6 +107,9 @@ struct BusLinesView: View {
         .navigationTitle("Linije")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.black, for: .navigationBar)
+        .onAppear {
+            fetchLines()
+        }
         .onDisappear {
             print("Izabrane gradske linije \(self.selectedUrbanLines.map{ $0.number })")
             print("Izabrane prigradske linije \(self.selectedSubrbanLines.map{ $0.number })")

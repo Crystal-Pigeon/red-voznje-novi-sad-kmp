@@ -146,7 +146,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				"sr-Latn",
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
