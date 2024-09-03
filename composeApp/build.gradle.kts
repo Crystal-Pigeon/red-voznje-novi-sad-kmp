@@ -36,6 +36,7 @@ kotlin {
 
         dependencies {
             implementation(libs.kotlinx.coroutines.android)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
         }
     }
 }

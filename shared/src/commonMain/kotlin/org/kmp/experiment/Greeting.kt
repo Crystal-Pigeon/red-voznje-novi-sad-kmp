@@ -33,7 +33,7 @@ class Greeting {
         return busList
     }
 
-    suspend fun getScheduleByLine(): String{
+    suspend fun getScheduleByLine(): Pair<List<LocalTime>, List<LocalTime>?>{
         val html = ktorClient.getScheduleByLine(area = Area.URBAN, day = DayType.WORKDAY, line = "2.")
         /*val document: Document = Ksoup.parse(html)
 
@@ -86,19 +86,11 @@ class Greeting {
         val directionA = parseDirection(timeCells.getOrNull(0))
         val directionB = parseDirection(timeCells.getOrNull(1))
 
-        // Print times for Direction A
-        println("Direction A:")
-        directionA.forEach { println(it) }
-
-        // Print times for Direction B
-        println("\nDirection B:")
-        directionB.forEach { println(it) }
-
-        return directionA.toString() + "\n" + directionB.toString()
+        return Pair(directionA, directionB)
     }
 
-    fun parseDirection(cell: Element?): List<String> {
-        val result = mutableListOf<String>()
+    private fun parseDirection(cell: Element?): List<LocalTime> {
+        val times = mutableListOf<LocalTime>()
         cell?.let {
             val elements = it.children()
 
@@ -110,7 +102,6 @@ class Greeting {
                     element.tagName() == "b" -> {
                         // If we have a new hour, save the previous one
                         if (currentHour.isNotEmpty()) {
-                            result.add("$currentHour ${minutes.joinToString(" ")}")
                             minutes.clear()
                         }
                         // Update the current hour
@@ -120,15 +111,11 @@ class Greeting {
                         // Collect minutes
                         val minute = element.text()
                         minutes.add(minute)
+                        times.add(LocalTime.parse("$currentHour:$minute"))
                     }
                 }
             }
-
-            // Add the last hour and minutes
-            if (currentHour.isNotEmpty()) {
-                result.add("$currentHour ${minutes.joinToString(" ")}")
-            }
         }
-        return result
+        return times
     }
 }
