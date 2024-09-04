@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		002650562C872755001996F2 /* StringResource+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650552C872755001996F2 /* StringResource+Extension.swift */; };
 		002650592C872C9C001996F2 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650582C872C9C001996F2 /* Color+Extension.swift */; };
+		00A899542C88567100968803 /* BusLineUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899532C88567100968803 /* BusLineUI.swift */; };
+		00A899562C88569600968803 /* FavoriteBusUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899552C88569600968803 /* FavoriteBusUI.swift */; };
+		00A899582C88628B00968803 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899572C88628B00968803 /* Font+Extension.swift */; };
+		00A8995A2C88658400968803 /* TabPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899592C88658400968803 /* TabPage.swift */; };
+		00A8995C2C88C31E00968803 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A8995B2C88C31E00968803 /* Date+Extension.swift */; };
+		00EB88642C87498100ABF94B /* FavoriteBusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB88632C87498100ABF94B /* FavoriteBusView.swift */; };
 		00FE3B702C81FCE5003EA8C2 /* BusLineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */; };
 		00FE3B722C81FDAB003EA8C2 /* BusLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */; };
 		00FE3B762C81FF1F003EA8C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B752C81FF1F003EA8C2 /* HomeView.swift */; };
@@ -20,6 +26,12 @@
 /* Begin PBXFileReference section */
 		002650552C872755001996F2 /* StringResource+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringResource+Extension.swift"; sourceTree = "<group>"; };
 		002650582C872C9C001996F2 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		00A899532C88567100968803 /* BusLineUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineUI.swift; sourceTree = "<group>"; };
+		00A899552C88569600968803 /* FavoriteBusUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBusUI.swift; sourceTree = "<group>"; };
+		00A899572C88628B00968803 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
+		00A899592C88658400968803 /* TabPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPage.swift; sourceTree = "<group>"; };
+		00A8995B2C88C31E00968803 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		00EB88632C87498100ABF94B /* FavoriteBusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBusView.swift; sourceTree = "<group>"; };
 		00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineItemView.swift; sourceTree = "<group>"; };
 		00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLinesView.swift; sourceTree = "<group>"; };
 		00FE3B752C81FF1F003EA8C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -45,15 +57,29 @@
 		002650572C87275D001996F2 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				00A899592C88658400968803 /* TabPage.swift */,
 				002650582C872C9C001996F2 /* Color+Extension.swift */,
+				00A899572C88628B00968803 /* Font+Extension.swift */,
+				00A8995B2C88C31E00968803 /* Date+Extension.swift */,
 				002650552C872755001996F2 /* StringResource+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
 		};
+		00A899502C88557400968803 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				00A899552C88569600968803 /* FavoriteBusUI.swift */,
+				00EB88632C87498100ABF94B /* FavoriteBusView.swift */,
+				00FE3B752C81FF1F003EA8C2 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		00FE3B6E2C81FCBD003EA8C2 /* BusLine */ = {
 			isa = PBXGroup;
 			children = (
+				00A899532C88567100968803 /* BusLineUI.swift */,
 				00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */,
 				00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */,
 			);
@@ -97,8 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
-				00FE3B752C81FF1F003EA8C2 /* HomeView.swift */,
 				002650572C87275D001996F2 /* Util */,
+				00A899502C88557400968803 /* Home */,
 				00FE3B6E2C81FCBD003EA8C2 /* BusLine */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -234,8 +260,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				00FE3B702C81FCE5003EA8C2 /* BusLineItemView.swift in Sources */,
+				00EB88642C87498100ABF94B /* FavoriteBusView.swift in Sources */,
+				00A899542C88567100968803 /* BusLineUI.swift in Sources */,
 				002650592C872C9C001996F2 /* Color+Extension.swift in Sources */,
+				00A899562C88569600968803 /* FavoriteBusUI.swift in Sources */,
+				00A8995C2C88C31E00968803 /* Date+Extension.swift in Sources */,
 				002650562C872755001996F2 /* StringResource+Extension.swift in Sources */,
+				00A8995A2C88658400968803 /* TabPage.swift in Sources */,
+				00A899582C88628B00968803 /* Font+Extension.swift in Sources */,
 				00FE3B762C81FF1F003EA8C2 /* HomeView.swift in Sources */,
 				00FE3B722C81FDAB003EA8C2 /* BusLinesView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,

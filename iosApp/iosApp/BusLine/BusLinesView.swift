@@ -9,27 +9,6 @@
 import SwiftUI
 import Shared
 
-internal struct BusLineList {
-    var index: Int
-    var name: String
-}
-
-struct BusLineListView: View {
-    @Binding var busLines: [BusLineUI]
-    
-    var body: some View {
-        List($busLines, id: \.id) { $busLine in
-            BusLineItemView(busLine: busLine)
-                .contentShape(.rect)
-                .listRowBackground(Color.white)
-                .onTapGesture {
-                    busLine.isSelected.toggle()
-                }
-        }
-        .listStyle(.insetGrouped)
-    }
-}
-
 struct BusLinesView: View {
     
     // MARK: - State properties
@@ -48,9 +27,9 @@ struct BusLinesView: View {
     }
     
     // MARK: - Constants
-    private var pages: [BusLineList] {[
-        BusLineList(index: 0, name: "Gradski"),
-        BusLineList(index: 1, name: "Prigradski")
+    private var pages: [TabPage] {[
+        TabPage(index: 0, name: "Gradski"),
+        TabPage(index: 1, name: "Prigradski")
     ]}
     
     private var underlineWidth: CGFloat {
@@ -60,29 +39,29 @@ struct BusLinesView: View {
     // MARK: - Layout
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 0) {
-                ForEach(pages, id: \.index) { page in
-                    Button(action: {
-                        selectedPageIndex = page.index
-                        underlineOffset = underlineWidth * CGFloat(page.index)
-                    }) {
-                        Text(page.name)
-                            .foregroundColor(Color.primary)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.backgroundPrimary)
-                            .cornerRadius(0)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(spacing: 0) {
+                    ForEach(pages, id: \.index) { page in
+                        Button(action: {
+                            selectedPageIndex = page.index
+                            underlineOffset = underlineWidth * CGFloat(page.index)
+                        }) {
+                            Text(page.name)
+                                .foregroundColor(Color.white)
+                                .frame(maxWidth: .infinity)
+                                .font(.regular(16))
+                                .padding()
+                        }
                     }
-                    .background(Color.backgroundPrimary)
                 }
+                Rectangle()
+                    .foregroundStyle(Color.white)
+                    .frame(height: 2)
+                    .frame(width: underlineWidth)
+                    .offset(x: underlineOffset)
+                    .animation(.easeInOut, value: underlineOffset)
             }
-            
-            Rectangle()
-                .foregroundStyle(Color.primary)
-                .frame(height: 1)
-                .frame(width: underlineWidth)
-                .offset(x: underlineOffset)
-                .animation(.easeInOut, value: underlineOffset)
+            .background(Color.brand)
             
             TabView(selection: $selectedPageIndex) {
                 ForEach(pages, id: \.index) { page in
@@ -96,7 +75,7 @@ struct BusLinesView: View {
                 underlineOffset = underlineWidth * CGFloat(newPage)
             }
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundSecondary)
         .navigationTitle("Linije")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -112,9 +91,17 @@ struct BusLinesView: View {
 // MARK: - Getting the data
 extension BusLinesView {
     private func getBusLines() {
-        Greeting().getBusLines { busLines, error in
+        let repository = Greeting()
+        repository.getBusLines(areaType: .urban, dayType: .workday) { busLines, error in
             if let busLines = busLines {
                 self.urbanLines = busLines.map {
+                    BusLineUI(response: $0)
+                }
+            }
+        }
+        repository.getBusLines(areaType: .suburban, dayType: .workday) { busLines, error in
+            if let busLines = busLines {
+                self.subrbanLines = busLines.map {
                     BusLineUI(response: $0)
                 }
             }

@@ -9,42 +9,50 @@
 import SwiftUI
 import Shared
 
-struct BusLineUI {
-    let id: String
-    let number: String
-    let name: String
-    
-    var isSelected: Bool = false
-}
-
-extension BusLineUI {
-    init(response: BusLine) {
-        self.id = response.id
-        self.number = response.name.components(separatedBy: " ").first ?? ""
-        self.name = response.name
-    }
-}
-
 struct BusLineItemView: View {
     let busLine: BusLineUI
     
     var body: some View {
         HStack(spacing: 8, content: {
             Text(busLine.number)
-                .fontWeight(.bold)
-                .foregroundStyle(Color.primary)
+                .font(.bold(15))
+                .foregroundStyle(Color.brand)
             Text(busLine.name.uppercased())
+                .font(.regular(15))
+                .foregroundStyle(Color.textPrimary)
             Spacer()
             busLine.isSelected ?
             Image(systemName: "checkmark")
-                .foregroundStyle(Color.primary) : nil
+                .foregroundStyle(Color.brand) : nil
         })
+        .background(Color.backgroundPrimary)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
-        .background(Color.backgroundPrimary)
+    }
+}
+
+struct BusLineListView: View {
+    @Binding var busLines: [BusLineUI]
+    
+    var body: some View {
+        List($busLines, id: \.id) { $busLine in
+            BusLineItemView(busLine: busLine)
+                .contentShape(.rect)
+                .listRowBackground(Color.backgroundPrimary)
+                .onTapGesture {
+                    busLine.isSelected.toggle()
+                }
+        }
+        .listStyle(.plain)
+        .listRowSpacing(12)
+        .background(Color.backgroundSecondary)
     }
 }
 
 #Preview {
-    BusLineItemView(busLine: BusLineUI(id: "52", number: "52", name: "Veternik"))
+    BusLineListView(busLines: .constant([
+        BusLineUI(id: "52", number: "52", name: "Veternik"),
+        BusLineUI(id: "52", number: "52", name: "Veternik"),
+        BusLineUI(id: "52", number: "52", name: "Veternik")
+    ]))
 }
