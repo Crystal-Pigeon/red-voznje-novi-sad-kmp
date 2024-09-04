@@ -18,9 +18,18 @@ kotlin {
     
     sourceSets {
         
+        val koin = "4.0.0-RC2"
+        val lifecycle_version = "2.8.4"
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.insert-koin:koin-android:${koin}")
+            implementation("io.insert-koin:koin-core:${koin}")
+            implementation("io.insert-koin:koin-androidx-compose:${koin}")
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)

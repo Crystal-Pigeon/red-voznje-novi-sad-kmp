@@ -14,20 +14,35 @@ import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.kmp.ktor.BusLine
+import org.koin.androidx.compose.koinViewModel
 
 import red_voznje_novi_sad_kmp.composeapp.generated.resources.Res
 import red_voznje_novi_sad_kmp.composeapp.generated.resources.compose_multiplatform
+
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        //var showContent by remember { mutableStateOf<List<BusLine>>(emptyList()) }
-        var showContent by remember { mutableStateOf<Pair<List<LocalTime>, List<LocalTime>?>>(Pair(emptyList(), emptyList())) }
-        LaunchedEffect(Unit) {
-            //Greeting().getScheduleByLine()
-            // Call your suspend function here
-            showContent = Greeting().getScheduleByLine()
-        }
-        Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
+        TestScreen()
     }
+}
+
+@Composable
+fun TestScreen(vm: TestViewModel = koinViewModel()) {
+    //var showContent by remember { mutableStateOf<List<BusLine>>(emptyList()) }
+    var showContent by remember {
+        mutableStateOf<Pair<List<LocalTime>, List<LocalTime>?>>(
+            Pair(
+                emptyList(),
+                emptyList()
+            )
+        )
+    }
+    LaunchedEffect(Unit) {
+        //Greeting().getScheduleByLine()
+        // Call your suspend function here
+        showContent = vm.busScheduleRepository.getScheduleByLine()
+
+    }
+    Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
 }
