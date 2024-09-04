@@ -7,6 +7,20 @@ plugins {
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
+object Versions {
+    const val koin = "4.0.0-RC2"
+}
+
+object Deps {
+
+    object Koin {
+        const val core = "io.insert-koin:koin-core:${Versions.koin}"
+        const val test = "io.insert-koin:koin-test:${Versions.koin}"
+        const val android = "io.insert-koin:koin-android:${Versions.koin}"
+    }
+
+}
+
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -36,15 +50,18 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation("com.fleeksoft.ksoup:ksoup-ktor2:0.1.6-alpha1")
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
+            implementation(Deps.Koin.core)
             // put your Multiplatform dependencies here
         }
 
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
+            implementation(Deps.Koin.android)
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(Deps.Koin.core)
         }
     }
 }
