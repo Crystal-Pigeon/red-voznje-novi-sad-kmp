@@ -18,9 +18,9 @@ struct HomeView: View {
     
     // MARK: - Constants
     private var pages: [TabPage] {[
-        TabPage(index: 0, name: "Radni dan"),
-        TabPage(index: 1, name: "Subota"),
-        TabPage(index: 2, name: "Nedelja")
+        TabPage(index: 0, name: SharedRes.strings().home_workday.localized),
+        TabPage(index: 1, name: SharedRes.strings().home_saturday.localized),
+        TabPage(index: 2, name: SharedRes.strings().home_sunday.localized)
     ]}
     
     private var underlineWidth: CGFloat {
@@ -78,7 +78,7 @@ struct HomeView: View {
                 }
             }
             .background(Color.backgroundSecondary)
-            .navigationTitle("Red Vožnje")
+            .navigationTitle(SharedRes.strings().home_title.localized)
             .navigationBarTitleDisplayMode(.inline)
         })
         .accentColor(.white)

@@ -28,8 +28,8 @@ struct BusLinesView: View {
     
     // MARK: - Constants
     private var pages: [TabPage] {[
-        TabPage(index: 0, name: "Gradski"),
-        TabPage(index: 1, name: "Prigradski")
+        TabPage(index: 0, name: SharedRes.strings().bus_lines_urban.localized),
+        TabPage(index: 1, name: SharedRes.strings().bus_lines_suburban.localized)
     ]}
     
     private var underlineWidth: CGFloat {
@@ -76,7 +76,7 @@ struct BusLinesView: View {
             }
         }
         .background(Color.backgroundSecondary)
-        .navigationTitle("Linije")
+        .navigationTitle(SharedRes.strings().bus_lines_title.localized)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             getBusLines()
