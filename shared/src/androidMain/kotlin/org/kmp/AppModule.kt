@@ -1,5 +1,6 @@
 import android.content.Context
 import android.content.SharedPreferences
+import org.kmp.Cache.CacheManager
 import org.kmp.Repositories.BusScheduleRepository
 import org.kmp.ktor.KtorClient
 import org.koin.android.ext.koin.androidContext
@@ -12,6 +13,7 @@ val networkModule = module {
 
 val cacheModule = module {
     singleOf(::Cache)
+    single { CacheManager() }
 }
 val storageModule = module {
     single { provideSharedPrefs(androidContext()) }
