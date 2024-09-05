@@ -45,7 +45,7 @@ struct BusScheduleView: View {
                 .padding(.bottom, 4)
             
             ForEach(timetable.sorted(by: <), id: \.key) { time in
-                HStack(spacing: 4) {
+                HStack(alignment: .top, spacing: 4) {
                     Text(time.key + ":")
                         .foregroundStyle(Int(time.key) == Date().hour ? Color.brand : Color.textPrimary)
                         .font(.bold(14))
