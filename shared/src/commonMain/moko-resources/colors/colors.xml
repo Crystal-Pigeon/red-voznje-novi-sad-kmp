@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- format: #RRGGBB[AA] or 0xRRGGBB[AA] or RRGGBB[AA] where [AA] - optional -->
-    <color name="brand">#4E90F3</color>
+    <color name="brand">#0066CC</color>
     <color name="primary_background">
         <light>#FFFFFF</light>
         <dark>#2F2F34</dark>

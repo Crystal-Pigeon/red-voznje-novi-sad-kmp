@@ -11,10 +11,10 @@ import Shared
 
 extension SwiftUI.Font {
     static func regular(_ size: Double) -> Font {
-        Font(SharedRes.fonts().inter_regular.uiFont(withSize: size))
+        Font(SharedRes.fonts().manrope_regular.uiFont(withSize: size))
     }
     
     static func bold(_ size: Double) -> Font {
-        Font(SharedRes.fonts().inter_semibold.uiFont(withSize: size))
+        Font(SharedRes.fonts().manrope_bold.uiFont(withSize: size))
     }
 }

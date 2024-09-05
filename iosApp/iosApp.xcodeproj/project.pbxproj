@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		002650562C872755001996F2 /* StringResource+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650552C872755001996F2 /* StringResource+Extension.swift */; };
 		002650592C872C9C001996F2 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650582C872C9C001996F2 /* Color+Extension.swift */; };
+		0058D38F2C8993B3008E442B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0058D38E2C8993B3008E442B /* Launch Screen.storyboard */; };
 		00A899542C88567100968803 /* BusLineUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899532C88567100968803 /* BusLineUI.swift */; };
 		00A899562C88569600968803 /* FavoriteBusUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899552C88569600968803 /* FavoriteBusUI.swift */; };
 		00A899582C88628B00968803 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899572C88628B00968803 /* Font+Extension.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		002650552C872755001996F2 /* StringResource+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringResource+Extension.swift"; sourceTree = "<group>"; };
 		002650582C872C9C001996F2 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		0058D38E2C8993B3008E442B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		00A899532C88567100968803 /* BusLineUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineUI.swift; sourceTree = "<group>"; };
 		00A899552C88569600968803 /* FavoriteBusUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBusUI.swift; sourceTree = "<group>"; };
 		00A899572C88628B00968803 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				002650572C87275D001996F2 /* Util */,
 				00A899502C88557400968803 /* Home */,
 				00FE3B6E2C81FCBD003EA8C2 /* BusLine */,
+				0058D38E2C8993B3008E442B /* Launch Screen.storyboard */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
@@ -206,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0058D38F2C8993B3008E442B /* Launch Screen.storyboard in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
@@ -419,8 +423,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -446,8 +452,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
