@@ -17,7 +17,7 @@ import org.kmp.ktor.DayType
 class BusScheduleRepository : KoinComponent {
     private val ktorClient: KtorClient by inject()
 
-    suspend fun getBusLines(areaType: Area, dayType: DayType): List<BusLine> {
+    suspend fun getBusLines(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY): List<BusLine> {
         val html = ktorClient.getBusLines(area = areaType, day = dayType)
         val document: Document = Ksoup.parse(html)
 
@@ -30,7 +30,7 @@ class BusScheduleRepository : KoinComponent {
         return busList
     }
 
-    suspend fun getScheduleByLine(areaType: Area, dayType: DayType, busLine:String): Pair<List<LocalTime>, List<LocalTime>?> {
+    suspend fun getScheduleByLine(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY, busLine:String = "2."): Pair<List<LocalTime>, List<LocalTime>?> {
         val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine)
         /*val document: Document = Ksoup.parse(html)
 
