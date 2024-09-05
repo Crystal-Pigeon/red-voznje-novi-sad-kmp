@@ -7,18 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002650562C872755001996F2 /* StringResource+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650552C872755001996F2 /* StringResource+Extension.swift */; };
+		002650592C872C9C001996F2 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650582C872C9C001996F2 /* Color+Extension.swift */; };
+		0058D38F2C8993B3008E442B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0058D38E2C8993B3008E442B /* Launch Screen.storyboard */; };
+		00A899542C88567100968803 /* BusLineUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899532C88567100968803 /* BusLineUI.swift */; };
+		00A899562C88569600968803 /* FavoriteBusUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899552C88569600968803 /* FavoriteBusUI.swift */; };
+		00A899582C88628B00968803 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899572C88628B00968803 /* Font+Extension.swift */; };
+		00A8995A2C88658400968803 /* TabPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899592C88658400968803 /* TabPage.swift */; };
+		00A8995C2C88C31E00968803 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A8995B2C88C31E00968803 /* Date+Extension.swift */; };
+		00EB88642C87498100ABF94B /* FavoriteBusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB88632C87498100ABF94B /* FavoriteBusView.swift */; };
+		00FE3B702C81FCE5003EA8C2 /* BusLineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */; };
+		00FE3B722C81FDAB003EA8C2 /* BusLinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */; };
+		00FE3B762C81FF1F003EA8C2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FE3B752C81FF1F003EA8C2 /* HomeView.swift */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		002650552C872755001996F2 /* StringResource+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringResource+Extension.swift"; sourceTree = "<group>"; };
+		002650582C872C9C001996F2 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		0058D38E2C8993B3008E442B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		00A899532C88567100968803 /* BusLineUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineUI.swift; sourceTree = "<group>"; };
+		00A899552C88569600968803 /* FavoriteBusUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBusUI.swift; sourceTree = "<group>"; };
+		00A899572C88628B00968803 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
+		00A899592C88658400968803 /* TabPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPage.swift; sourceTree = "<group>"; };
+		00A8995B2C88C31E00968803 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		00EB88632C87498100ABF94B /* FavoriteBusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBusView.swift; sourceTree = "<group>"; };
+		00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineItemView.swift; sourceTree = "<group>"; };
+		00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLinesView.swift; sourceTree = "<group>"; };
+		00FE3B752C81FF1F003EA8C2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* red-voznje-novi-sad-kmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "red-voznje-novi-sad-kmp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -34,6 +56,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		002650572C87275D001996F2 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				00A899592C88658400968803 /* TabPage.swift */,
+				002650582C872C9C001996F2 /* Color+Extension.swift */,
+				00A899572C88628B00968803 /* Font+Extension.swift */,
+				00A8995B2C88C31E00968803 /* Date+Extension.swift */,
+				002650552C872755001996F2 /* StringResource+Extension.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		00A899502C88557400968803 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				00A899552C88569600968803 /* FavoriteBusUI.swift */,
+				00EB88632C87498100ABF94B /* FavoriteBusView.swift */,
+				00FE3B752C81FF1F003EA8C2 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		00FE3B6E2C81FCBD003EA8C2 /* BusLine */ = {
+			isa = PBXGroup;
+			children = (
+				00A899532C88567100968803 /* BusLineUI.swift */,
+				00FE3B6F2C81FCE5003EA8C2 /* BusLineItemView.swift */,
+				00FE3B712C81FDAB003EA8C2 /* BusLinesView.swift */,
+			);
+			path = BusLine;
+			sourceTree = "<group>";
+		};
 		058557D7273AAEEB004C7B11 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,10 +124,13 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				7555FF82242A565900829871 /* ContentView.swift */,
-				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				002650572C87275D001996F2 /* Util */,
+				00A899502C88557400968803 /* Home */,
+				00FE3B6E2C81FCBD003EA8C2 /* BusLine */,
+				0058D38E2C8993B3008E442B /* Launch Screen.storyboard */,
+				7555FF8C242A565B00829871 /* Info.plist */,
+				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
@@ -98,6 +155,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
+				002650542C871A1A001996F2 /* Moko Resources */,
 			);
 			buildRules = (
 			);
@@ -151,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0058D38F2C8993B3008E442B /* Launch Screen.storyboard in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
@@ -159,8 +218,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		002650542C871A1A001996F2 /* Moko Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Moko Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../\" :shared:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.PLATFORM_NAME=\"$PLATFORM_NAME\" \\\n    -Pmoko.resources.CONFIGURATION=\"$CONFIGURATION\" \\\n    -Pmoko.resources.ARCHS=\"$ARCHS\" \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\"\n";
+		};
 		F36B1CEA2AD836FC00CB74D5 /* Compile Kotlin Framework */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -184,8 +263,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00FE3B702C81FCE5003EA8C2 /* BusLineItemView.swift in Sources */,
+				00EB88642C87498100ABF94B /* FavoriteBusView.swift in Sources */,
+				00A899542C88567100968803 /* BusLineUI.swift in Sources */,
+				002650592C872C9C001996F2 /* Color+Extension.swift in Sources */,
+				00A899562C88569600968803 /* FavoriteBusUI.swift in Sources */,
+				00A8995C2C88C31E00968803 /* Date+Extension.swift in Sources */,
+				002650562C872755001996F2 /* StringResource+Extension.swift in Sources */,
+				00A8995A2C88658400968803 /* TabPage.swift in Sources */,
+				00A899582C88628B00968803 /* Font+Extension.swift in Sources */,
+				00FE3B762C81FF1F003EA8C2 /* HomeView.swift in Sources */,
+				00FE3B722C81FDAB003EA8C2 /* BusLinesView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
-				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -302,7 +391,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -319,14 +408,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,8 +423,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -346,14 +437,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -361,8 +452,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
