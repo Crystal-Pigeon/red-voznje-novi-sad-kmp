@@ -15,6 +15,11 @@ actual class Cache : KoinComponent {
             Boolean::class -> sharedPrefs.edit().putBoolean(key, value as Boolean).apply()
 
             Long::class -> sharedPrefs.edit().putLong(key, value as Long).apply()
+
+            Set::class -> try {
+                @Suppress("UNCHECKED_CAST")
+                sharedPrefs.edit().putStringSet("list", (value as Set<String>))
+            } finally {}
             else -> {}
         }
     }
@@ -39,6 +44,10 @@ actual class Cache : KoinComponent {
 
             Long::class -> {
                 return sharedPrefs.getLong(key, -1L) as T
+            }
+
+            Set::class -> {
+                return sharedPrefs.getStringSet(key, emptySet()) as T
             }
 
             else -> {

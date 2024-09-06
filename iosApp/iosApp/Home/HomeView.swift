@@ -89,7 +89,7 @@ struct HomeView: View {
     
     private func getFavoriteBuses() {
         let repository = BusScheduleRepository()
-        repository.getScheduleByLine { response, error in
+        repository.getScheduleByLine(areaType: .urban, dayType: .workday, busLine: "2.") { response, error in
             if let response = response {
                 let scheduleA = response.first as? Array<Any> ?? []
                 print(scheduleA)

@@ -14,11 +14,12 @@ import org.kmp.ktor.Area
 import org.kmp.ktor.BusLine
 import org.kmp.ktor.DayType
 
-class BusScheduleRepository : KoinComponent {
-    private val ktorClient: KtorClient by inject()
+class BusScheduleRepository()/* : KoinComponent*/ {
+    //private val ktorClient: KtorClient by inject()
+    private val ktorClient = KtorClient()
 
-    suspend fun getBusLines(): List<BusLine> {
-        val html = ktorClient.getBusLines(area = Area.URBAN, day = DayType.WORKDAY)
+    suspend fun getBusLines(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY): List<BusLine> {
+        val html = ktorClient.getBusLines(area = areaType, day = dayType)
         val document: Document = Ksoup.parse(html)
 
         val options = document.select("select#linija option")
@@ -30,8 +31,8 @@ class BusScheduleRepository : KoinComponent {
         return busList
     }
 
-    suspend fun getScheduleByLine(): Pair<List<LocalTime>, List<LocalTime>?> {
-        val html = ktorClient.getScheduleByLine(area = Area.URBAN, day = DayType.WORKDAY, line = "2.")
+    suspend fun getScheduleByLine(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY, busLine:String = "2."): Pair<List<LocalTime>, List<LocalTime>?> {
+        val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine)
         /*val document: Document = Ksoup.parse(html)
 
         // Select the table cell containing times for the first direction
