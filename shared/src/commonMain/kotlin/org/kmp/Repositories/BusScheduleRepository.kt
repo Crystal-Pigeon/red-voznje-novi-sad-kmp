@@ -14,8 +14,9 @@ import org.kmp.ktor.Area
 import org.kmp.ktor.BusLine
 import org.kmp.ktor.DayType
 
-class BusScheduleRepository : KoinComponent {
-    private val ktorClient: KtorClient by inject()
+class BusScheduleRepository()/* : KoinComponent*/ {
+    //private val ktorClient: KtorClient by inject()
+    private val ktorClient = KtorClient()
 
     suspend fun getBusLines(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY): List<BusLine> {
         val html = ktorClient.getBusLines(area = areaType, day = dayType)

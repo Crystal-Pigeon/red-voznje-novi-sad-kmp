@@ -32,8 +32,9 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
     LaunchedEffect(Unit) {
         //Greeting().getScheduleByLine()
         // Call your suspend function here
-        showContent = vm.busScheduleRepository.getScheduleByLine()
+        //showContent = vm.busScheduleRepository.getScheduleByLine()
 
     }
-    Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
+    Text("qwer")
+    //Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
 }
