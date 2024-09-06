@@ -16,8 +16,6 @@ actual class Cache {
 
             Long::class -> userDefaults.setInteger(value as Long, forKey = key)
 
-            Set::class -> userDefaults.setObject(value as Set<*>, forKey = key)
-
             else -> throw IllegalArgumentException("Unsupported type")
         }
         userDefaults.synchronize()
@@ -34,8 +32,6 @@ actual class Cache {
             Boolean::class -> userDefaults.boolForKey(key) as T?
 
             Long::class -> userDefaults.integerForKey(key) as T?
-
-            Set::class -> userDefaults.objectForKey(key) as T?
 
             else -> null
         }
