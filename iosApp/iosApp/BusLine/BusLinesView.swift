@@ -82,8 +82,8 @@ struct BusLinesView: View {
             getBusLines()
         }
         .onDisappear {
-            print("Izabrane gradske linije \(self.selectedUrbanLines.map{ $0.id })")
-            print("Izabrane prigradske linije \(self.selectedSubrbanLines.map{ $0.id })")
+            let favoriteLines = self.selectedUrbanLines.map{ $0.id } + self.selectedSubrbanLines.map{ $0.id }
+            CacheManager().favourites = favoriteLines
         }
     }
 }
