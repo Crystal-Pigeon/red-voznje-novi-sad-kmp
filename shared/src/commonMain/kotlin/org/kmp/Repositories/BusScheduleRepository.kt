@@ -1,15 +1,21 @@
 package org.kmp.Repositories
 
+import Cache
 import org.kmp.ktor.KtorClient
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import com.fleeksoft.ksoup.Ksoup
 import com.fleeksoft.ksoup.nodes.Document
 import com.fleeksoft.ksoup.nodes.Element
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.kmp.Cache.CacheManager
 import org.kmp.ktor.Area
 import org.kmp.ktor.BusLine
 import org.kmp.ktor.DayType
@@ -17,6 +23,7 @@ import org.kmp.ktor.DayType
 class BusScheduleRepository()/* : KoinComponent*/ {
     //private val ktorClient: KtorClient by inject()
     private val ktorClient = KtorClient()
+    private val cache = CacheManager()
 
     suspend fun getBusLines(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY): List<BusLine> {
         val html = ktorClient.getBusLines(area = areaType, day = dayType)
@@ -106,9 +113,35 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         return times
     }
 
-    suspend fun getFavourites(busLines: List<String>) {
-        busLines.forEach {
-            getScheduleByLine(busLine = it)
+    suspend fun getSchedulesByDayType(busLines: List<Pair<Area, String>>, dayType: DayType): List<BusSchedule> =
+        coroutineScope {
+            val deferredResults = mutableListOf<Deferred<BusSchedule>>()
+            busLines.forEach {
+                deferredResults.add(async {
+                    getScheduleByLine(
+                        busLine = it.second,
+                        areaType = it.first,
+                        dayType = dayType
+                    )
+                })
+            }
+            deferredResults.awaitAll()
         }
+
+    suspend fun getFavourites(): Map<DayType, List<BusSchedule>> = coroutineScope {
+        val favourites = mutableListOf<Pair<Area, String>>()
+        cache.urbanFavourites.forEach {
+            favourites.add(Pair<Area, String>(Area.URBAN, it))
+        }
+        cache.suburbanFavourites.forEach {
+            favourites.add(Pair<Area, String>(Area.SUBURBAN, it))
+        }
+        val deferredResults: MutableMap<DayType, Deferred<List<BusSchedule>>> = mutableMapOf()
+        DayType.entries.forEach {
+            deferredResults[it] = async {
+                getSchedulesByDayType(busLines = favourites, dayType = it)
+            }
+        }
+        deferredResults.mapValues { it.value.await() }
     }
 }

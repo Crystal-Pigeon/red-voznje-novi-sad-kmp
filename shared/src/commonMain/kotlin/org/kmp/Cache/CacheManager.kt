@@ -16,17 +16,27 @@ class CacheManager : KoinComponent {
             cache.clear(CacheIds.SCHEDULE_VALID_FROM.id)
         }
 
-    var favourites: List<String>
+    var urbanFavourites: List<String>
         get() {
-            val allStrings = cache.load<String>(CacheIds.FAVOURITES.id)
+            val allStrings = cache.load<String>(CacheIds.URBAN_FAVOURITES.id)
             return allStrings?.split(", ") ?: emptyList()
         }
         set(value){
-            cache.save(CacheIds.FAVOURITES.id, value.joinToString(separator = ", "))
+            cache.save(CacheIds.URBAN_FAVOURITES.id, value.joinToString(separator = ", "))
+        }
+
+    var suburbanFavourites: List<String>
+        get() {
+            val allStrings = cache.load<String>(CacheIds.SUBURBAN_FAVOURITES.id)
+            return allStrings?.split(", ") ?: emptyList()
+        }
+        set(value){
+            cache.save(CacheIds.SUBURBAN_FAVOURITES.id, value.joinToString(separator = ", "))
         }
 }
 
 enum class CacheIds(val id: String) {
     SCHEDULE_VALID_FROM("scheduleValidFrom"),
-    FAVOURITES("favourites")
+    URBAN_FAVOURITES("urban_favourites"),
+    SUBURBAN_FAVOURITES("suburban_favourites")
 }
