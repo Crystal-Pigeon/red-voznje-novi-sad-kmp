@@ -41,6 +41,13 @@ struct BusLineListView: View {
                 .listRowBackground(Color.backgroundPrimary)
                 .onTapGesture {
                     busLine.isSelected.toggle()
+                    if busLine.isSelected {
+                        CacheManager().favourites.append(busLine.id)
+                    } else {
+                        CacheManager().favourites.removeAll(where: {
+                            $0 == busLine.id
+                        })
+                    }
                 }
         }
         .listStyle(.plain)
@@ -51,8 +58,8 @@ struct BusLineListView: View {
 
 #Preview {
     BusLineListView(busLines: .constant([
-        BusLineUI(id: "52", number: "52", name: "Veternik"),
-        BusLineUI(id: "52", number: "52", name: "Veternik"),
-        BusLineUI(id: "52", number: "52", name: "Veternik")
+        BusLineUI(id: "52", number: "52", name: "Veternik", isSelected: false),
+        BusLineUI(id: "52", number: "52", name: "Veternik", isSelected: false),
+        BusLineUI(id: "52", number: "52", name: "Veternik", isSelected: false)
     ]))
 }

@@ -13,8 +13,7 @@ struct BusLineUI {
     let id: String
     let number: String
     let name: String
-    
-    var isSelected: Bool = false
+    var isSelected: Bool
 }
 
 extension BusLineUI {
@@ -23,5 +22,6 @@ extension BusLineUI {
         self.id = response.id
         self.number = nameArray.removeFirst()
         self.name = nameArray.joined(separator: " ")
+        self.isSelected = CacheManager().favourites.contains(response.id)
     }
 }

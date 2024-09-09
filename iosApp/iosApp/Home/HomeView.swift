@@ -12,9 +12,11 @@ import Shared
 struct HomeView: View {
 
     // MARK: - State properties
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
-    @State private var favoriteBuses: [FavoriteBusUI] = [FavoriteBusUI.dummy]
+    @State private var favoriteBuses: [FavoriteBusUI] = []
 
     // MARK: - Constants
     private var pages: [TabPage] {[
@@ -30,43 +32,45 @@ struct HomeView: View {
     // MARK: - Layout
     var body: some View {
         NavigationView(content: {
-            VStack(alignment: .trailing) {
-                VStack(alignment: .leading, spacing: 0) {
-                    HStack(spacing: 0) {
-                        ForEach(pages, id: \.index) { page in
-                            Button(action: {
-                                selectedPageIndex = page.index
-                                underlineOffset = underlineWidth * CGFloat(page.index)
-                            }) {
-                                Text(page.name)
-                                    .foregroundColor(Color.white)
-                                    .frame(maxWidth: .infinity)
-                                    .font(.regular(16))
-                                    .padding()
+            ZStack(alignment: .bottomTrailing) {
+                VStack(alignment: .trailing) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(spacing: 0) {
+                            ForEach(pages, id: \.index) { page in
+                                Button(action: {
+                                    selectedPageIndex = page.index
+                                    underlineOffset = underlineWidth * CGFloat(page.index)
+                                }) {
+                                    Text(page.name)
+                                        .foregroundColor(Color.white)
+                                        .frame(maxWidth: .infinity)
+                                        .font(.regular(16))
+                                        .padding()
+                                }
                             }
                         }
+                        Rectangle()
+                            .foregroundStyle(Color.white)
+                            .frame(height: 2)
+                            .frame(width: underlineWidth)
+                            .offset(x: underlineOffset)
+                            .animation(.easeInOut, value: underlineOffset)
                     }
-                    Rectangle()
-                        .foregroundStyle(Color.white)
-                        .frame(height: 2)
-                        .frame(width: underlineWidth)
-                        .offset(x: underlineOffset)
-                        .animation(.easeInOut, value: underlineOffset)
-                }
-                .background(Color.brand)
-
-                TabView(selection: $selectedPageIndex) {
-                    ForEach(pages, id: \.index) { page in
-                        FavoriteBusesListView(favoriteBuses: favoriteBuses)
+                    .background(Color.brand)
+                    
+                    TabView(selection: $selectedPageIndex) {
+                        ForEach(pages, id: \.index) { page in
+                            FavoriteBusesListView(favoriteBuses: $favoriteBuses)
+                        }
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .animation(.easeInOut, value: selectedPageIndex)
+                    .onChange(of: selectedPageIndex) { newPage in
+                        selectedPageIndex = newPage
+                        underlineOffset = underlineWidth * CGFloat(newPage)
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .animation(.easeInOut, value: selectedPageIndex)
-                .onChange(of: selectedPageIndex) { newPage in
-                    selectedPageIndex = newPage
-                    underlineOffset = underlineWidth * CGFloat(newPage)
-                }
-
+                
                 NavigationLink(destination: BusLinesView()) {
                     Text("+")
                         .frame(width: 56, height: 56)
@@ -75,24 +79,28 @@ struct HomeView: View {
                         .font(.regular(24))
                         .clipShape(.circle)
                         .padding(.trailing, 32)
+                        .padding(.bottom, 16)
                 }
             }
             .background(Color.backgroundSecondary)
             .navigationTitle(SharedRes.strings().home_title.localized)
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                getFavoriteBuses()
+            }
         })
         .accentColor(.white)
-        .onAppear{
-            getFavoriteBuses()
-        }
     }
 
     private func getFavoriteBuses() {
+        self.favoriteBuses = []
         let repository = BusScheduleRepository()
-        repository.getScheduleByLine(areaType: .urban, dayType: .workday, busLine: "2.") { response, error in
-            if let response = response {
-                let scheduleA = response.first as? Array<Any> ?? []
-                print(scheduleA)
+        let favoriteLines = CacheManager().favourites
+        for lineId in favoriteLines {
+            repository.getScheduleByLine(areaType: .urban, dayType: .workday, busLine: lineId) { response, error in
+                if let response = response, !self.favoriteBuses.contains(where: { $0.id == lineId }) {
+                    self.favoriteBuses.insert(FavoriteBusUI(response: response), at: 0)
+                }
             }
         }
     }

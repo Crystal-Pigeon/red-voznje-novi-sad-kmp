@@ -16,7 +16,7 @@ struct BusHeaderView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Text(number)
-                .frame(width: 32, height: 32)
+                .frame(width: 36, height: 36)
                 .background(Color.brand)
                 .foregroundStyle(.white)
                 .font(.bold(16))
@@ -34,7 +34,9 @@ struct BusHeaderView: View {
 struct BusScheduleView: View {
     
     @State var title: String
-    @State var timetable: [String:String]
+    @State var shortTimetable: [String:String]
+    @State var longTimetable: [String:String]
+    @Binding var isOpened: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -44,7 +46,7 @@ struct BusScheduleView: View {
                 .font(.regular(14))
                 .padding(.bottom, 4)
             
-            ForEach(timetable.sorted(by: <), id: \.key) { time in
+            ForEach((isOpened ? longTimetable : shortTimetable).sorted(by: <), id: \.key) { time in
                 HStack(alignment: .top, spacing: 4) {
                     Text(time.key + ":")
                         .foregroundStyle(Int(time.key) == Date().hour ? Color.brand : Color.textPrimary)
@@ -60,16 +62,19 @@ struct BusScheduleView: View {
 }
 
 struct FavoriteBusView: View {
-    let bus: FavoriteBusUI
+    @Binding var bus: FavoriteBusUI
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             BusHeaderView(number: bus.number, title: bus.name)
             HStack(alignment: .top, spacing: 0) {
-                BusScheduleView(title: bus.scheduleTitleA, timetable: bus.scheduleA)
+                BusScheduleView(title: bus.scheduleTitleA, shortTimetable: bus.shortScheduleA, longTimetable: bus.scheduleA, isOpened: $bus.isOpened)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                BusScheduleView(title: bus.scheduleTitleB, timetable: bus.scheduleB)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if let directionB = bus.scheduleTitleB, let scheduleB = bus.scheduleB, let shortScheduleB = bus.shortScheduleB {
+                    BusScheduleView(title: directionB, shortTimetable: shortScheduleB, longTimetable: scheduleB, isOpened: $bus.isOpened)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
         }
         .padding(4)
@@ -78,11 +83,12 @@ struct FavoriteBusView: View {
 
 struct FavoriteBusesListView: View {
     
-    @State var favoriteBuses: [FavoriteBusUI]
+    @Binding var favoriteBuses: [FavoriteBusUI]
     
     var body: some View {
         List($favoriteBuses, id: \.id) { $bus in
-            FavoriteBusView(bus: bus)
+            FavoriteBusView(bus: $bus)
+                .clipShape(.rect)
                 .padding(12)
                 .listRowSeparator(.hidden)
                 .listRowBackground(
@@ -92,6 +98,9 @@ struct FavoriteBusesListView: View {
                         .shadow(color: Color.black.opacity(0.15), radius: 8)
                         .padding(16)
                 )
+                .onTapGesture {
+                    bus.isOpened.toggle()
+                }
         }
         .padding(2)
         .listStyle(.plain)
@@ -100,5 +109,5 @@ struct FavoriteBusesListView: View {
 }
 
 #Preview {
-    FavoriteBusesListView(favoriteBuses: [FavoriteBusUI.dummy, FavoriteBusUI.dummy])
+    FavoriteBusesListView(favoriteBuses: .constant([FavoriteBusUI.dummy]))
 }

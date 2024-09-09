@@ -81,10 +81,6 @@ struct BusLinesView: View {
         .onAppear {
             getBusLines()
         }
-        .onDisappear {
-            let favoriteLines = self.selectedUrbanLines.map{ $0.id } + self.selectedSubrbanLines.map{ $0.id }
-            CacheManager().favourites = favoriteLines
-        }
     }
 }
 
