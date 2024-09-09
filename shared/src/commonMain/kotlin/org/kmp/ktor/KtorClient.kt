@@ -9,7 +9,7 @@ class KtorClient {
         expectSuccess = true
     }
     
-    suspend fun getBusLines(area: Area, day: DayType?, date: String = "2024-09-01"): String{
+    suspend fun getBusLines(area: Area, day: DayType?, date: String = "2024-09-09"): String{
         return client.get("http://www.gspns.co.rs/red-voznje/lista-linija"){
             url{
                 parameters.append("rv", area.id)
@@ -19,7 +19,7 @@ class KtorClient {
         }.bodyAsText()
     }
 
-    suspend fun getScheduleByLine(area: Area, day: DayType?, line: String, date: String = "2024-09-01"): String{
+    suspend fun getScheduleByLine(area: Area, day: DayType?, line: String, date: String = "2024-09-09"): String{
         return client.get("http://www.gspns.co.rs/red-voznje/ispis-polazaka"){
             url{
                 parameters.append("rv", area.id)

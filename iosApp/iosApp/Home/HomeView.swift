@@ -10,23 +10,23 @@ import SwiftUI
 import Shared
 
 struct HomeView: View {
-    
+
     // MARK: - State properties
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
     @State private var favoriteBuses: [FavoriteBusUI] = [FavoriteBusUI.dummy]
-    
+
     // MARK: - Constants
     private var pages: [TabPage] {[
         TabPage(index: 0, name: SharedRes.strings().home_workday.localized),
         TabPage(index: 1, name: SharedRes.strings().home_saturday.localized),
         TabPage(index: 2, name: SharedRes.strings().home_sunday.localized)
     ]}
-    
+
     private var underlineWidth: CGFloat {
         UIScreen.main.bounds.width / CGFloat(pages.count)
     }
-    
+
     // MARK: - Layout
     var body: some View {
         NavigationView(content: {
@@ -54,7 +54,7 @@ struct HomeView: View {
                         .animation(.easeInOut, value: underlineOffset)
                 }
                 .background(Color.brand)
-                
+
                 TabView(selection: $selectedPageIndex) {
                     ForEach(pages, id: \.index) { page in
                         FavoriteBusesListView(favoriteBuses: favoriteBuses)
@@ -66,7 +66,7 @@ struct HomeView: View {
                     selectedPageIndex = newPage
                     underlineOffset = underlineWidth * CGFloat(newPage)
                 }
-                
+
                 NavigationLink(destination: BusLinesView()) {
                     Text("+")
                         .frame(width: 56, height: 56)
@@ -86,7 +86,7 @@ struct HomeView: View {
             getFavoriteBuses()
         }
     }
-    
+
     private func getFavoriteBuses() {
         let repository = BusScheduleRepository()
         repository.getScheduleByLine(areaType: .urban, dayType: .workday, busLine: "2.") { response, error in

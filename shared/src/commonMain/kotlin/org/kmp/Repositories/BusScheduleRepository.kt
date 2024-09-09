@@ -31,76 +31,64 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         return busList
     }
 
-    suspend fun getScheduleByLine(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY, busLine:String = "2."): Pair<List<LocalTime>, List<LocalTime>?> {
+    suspend fun getScheduleByLine(
+        areaType: Area = Area.URBAN,
+        dayType: DayType = DayType.WORKDAY,
+        busLine: String = "2."
+    ): BusSchedule {
         val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine)
-        /*val document: Document = Ksoup.parse(html)
-
-        // Select the table cell containing times for the first direction
-        val timeCell = document.select("td[valign='top']").first()
-
-        // To hold the final result
-        val result = mutableListOf<String>()
-
-        timeCell?.let { cell ->
-            val elements = cell.children()
-
-            var currentHour = ""
-            val minutes = mutableListOf<String>()
-
-            for (element in elements) {
-                when {
-                    element.tagName() == "b" -> {
-                        // If we have a new hour, save the previous one
-                        if (currentHour.isNotEmpty()) {
-                            result.add("$currentHour ${minutes.joinToString(" ")}")
-                            minutes.clear()
-                        }
-                        // Update the current hour
-                        currentHour = element.text()
-                    }
-                    element.tagName() == "sup" -> {
-                        // Collect minutes
-                        val minute = element.text()
-                        minutes.add(minute)
-                    }
-                }
-            }
-
-            // Add the last hour and minutes
-            if (currentHour.isNotEmpty()) {
-                result.add("$currentHour ${minutes.joinToString(" ")}")
-            }
-        }
-
-        // Print the result
-        //result.forEach { println(it) }
-        return result.toString()*/
         val document: Document = Ksoup.parse(html)
 
-        // Select the table cells containing times for both directions
         val timeCells = document.select("td[valign='top']")
 
-        // Parse times for both directions
         val directionA = parseDirection(timeCells.getOrNull(0))
         val directionB = parseDirection(timeCells.getOrNull(1))
 
-        return Pair(directionA, directionB)
+        // Select the <th> elements for direction names
+        val directionHeaders = document.select("th")
+
+        // Find the direction names in <th> tags (A and B)
+        val directionAName =
+            directionHeaders.firstOrNull { it.text().contains("Смер A") }?.text()?.substringAfter(":")?.trim()
+        val directionBName =
+            directionHeaders.firstOrNull { it.text().contains("Смер B") }?.text()?.substringAfter(":")?.trim()
+
+        val lineInfoElement = document.selectFirst("div.table-title")
+
+        // Check if the element exists and extract the text
+        return with(lineInfoElement) {
+            val lineInfoText = this?.text()?.trim() ?: ""
+
+            // Extract the ID and line name from the text (e.g., "Линија: 2 CENTAR - NOVO NASELJE")
+            val lineName = lineInfoText.substringAfter(" ").substringAfter(" ").trim()
+
+            BusSchedule(
+                id = busLine,
+                number = busLine.removeSuffix("."),
+                lineName = lineName,
+                directionA = directionAName ?: "",
+                directionB = directionBName,
+                scheduleA = directionA,
+                scheduleB = directionB.ifEmpty { null }
+            )
+        }
+
     }
 
-    private fun parseDirection(cell: Element?): List<LocalTime> {
-        val times = mutableListOf<LocalTime>()
+    private fun parseDirection(cell: Element?): Map<String, String> {
+        val times: MutableMap<String, String> = mutableMapOf()
         cell?.let {
             val elements = it.children()
 
             var currentHour = ""
-            val minutes = mutableListOf<String>()
+            var minutes = ""
 
             for (element in elements) {
                 when {
                     element.tagName() == "b" -> {
                         // If we have a new hour, save the previous one
                         if (currentHour.isNotEmpty()) {
-                            minutes.clear()
+                            minutes = ""
                         }
                         // Update the current hour
                         currentHour = element.text()
@@ -108,13 +96,18 @@ class BusScheduleRepository()/* : KoinComponent*/ {
 
                     element.tagName() == "sup" -> {
                         // Collect minutes
-                        val minute = element.text()
-                        minutes.add(minute)
-                        times.add(LocalTime.parse("$currentHour:$minute"))
+                        minutes += " " + element.text()
+                        times[currentHour] = minutes
                     }
                 }
             }
         }
         return times
+    }
+
+    suspend fun getFavourites(busLines: List<String>) {
+        busLines.forEach {
+            getScheduleByLine(busLine = it)
+        }
     }
 }

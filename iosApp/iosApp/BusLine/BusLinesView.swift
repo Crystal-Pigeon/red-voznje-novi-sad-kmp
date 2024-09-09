@@ -10,28 +10,28 @@ import SwiftUI
 import Shared
 
 struct BusLinesView: View {
-    
+
     // MARK: - State properties
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
-    
+
     @State private var urbanLines: [BusLineUI] = []
     @State private var subrbanLines: [BusLineUI] = []
-    
+
     private var selectedUrbanLines: [BusLineUI] {
         urbanLines.filter{ $0.isSelected }
     }
-    
+
     private var selectedSubrbanLines: [BusLineUI] {
         subrbanLines.filter{ $0.isSelected }
     }
-    
+
     // MARK: - Constants
     private var pages: [TabPage] {[
         TabPage(index: 0, name: SharedRes.strings().bus_lines_urban.localized),
         TabPage(index: 1, name: SharedRes.strings().bus_lines_suburban.localized)
     ]}
-    
+
     private var underlineWidth: CGFloat {
         UIScreen.main.bounds.width / CGFloat(pages.count)
     }
@@ -62,7 +62,7 @@ struct BusLinesView: View {
                     .animation(.easeInOut, value: underlineOffset)
             }
             .background(Color.brand)
-            
+
             TabView(selection: $selectedPageIndex) {
                 ForEach(pages, id: \.index) { page in
                     BusLineListView(busLines: page.index == 0 ? $urbanLines : $subrbanLines)
