@@ -1,6 +1,7 @@
 package org.kmp.Cache
 
 import Cache
+import org.kmp.ktor.Area
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -21,7 +22,7 @@ class CacheManager : KoinComponent {
             val allStrings = cache.load<String>(CacheIds.URBAN_FAVOURITES.id)
             return allStrings?.split(", ") ?: emptyList()
         }
-        set(value){
+        set(value) {
             cache.save(CacheIds.URBAN_FAVOURITES.id, value.joinToString(separator = ", "))
         }
 
@@ -30,9 +31,27 @@ class CacheManager : KoinComponent {
             val allStrings = cache.load<String>(CacheIds.SUBURBAN_FAVOURITES.id)
             return allStrings?.split(", ") ?: emptyList()
         }
-        set(value){
+        set(value) {
             cache.save(CacheIds.SUBURBAN_FAVOURITES.id, value.joinToString(separator = ", "))
         }
+
+    val favourites: List<String>
+        get() = urbanFavourites + suburbanFavourites
+
+    fun removeFromFavourites(id: String) {
+        if (urbanFavourites.contains(id)) {
+            urbanFavourites = urbanFavourites.filter { it != id }//keeping the list immutable
+        } else if (suburbanFavourites.contains(id)) {
+            suburbanFavourites = suburbanFavourites.filter { it != id }
+        }
+    }
+
+    fun addToFavourites(id: String, areaType: Area) {
+        when (areaType) {
+            Area.URBAN -> if(!urbanFavourites.contains(id)) urbanFavourites = urbanFavourites + listOf(id)//keeping the list immutable
+            Area.SUBURBAN -> if(!suburbanFavourites.contains(id)) suburbanFavourites = suburbanFavourites + listOf(id)
+        }
+    }
 }
 
 enum class CacheIds(val id: String) {
