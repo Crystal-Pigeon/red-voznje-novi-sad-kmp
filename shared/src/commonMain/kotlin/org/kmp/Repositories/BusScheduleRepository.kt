@@ -34,7 +34,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
     suspend fun getScheduleByLine(
         areaType: Area = Area.URBAN,
         dayType: DayType = DayType.WORKDAY,
-        busLine: String = "2."
+        busLine: String = "3B."
     ): BusSchedule {
         val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine)
         val document: Document = Ksoup.parse(html)
@@ -60,11 +60,12 @@ class BusScheduleRepository()/* : KoinComponent*/ {
             val lineInfoText = this?.text()?.trim() ?: ""
 
             // Extract the ID and line name from the text (e.g., "Линија: 2 CENTAR - NOVO NASELJE")
-            val lineName = lineInfoText.substringAfter(" ").substringAfter(" ").trim()
+            val lineName = lineInfoText.substringAfter(" ").substringAfter(" ").substringAfter(" ").trim()
+            val lineNumber = lineInfoText.substringAfter(" ").substringAfter(" ").substringBefore(" ")
 
             BusSchedule(
                 id = busLine,
-                number = busLine.removeSuffix("."),
+                number = lineNumber,
                 lineName = lineName,
                 directionA = directionAName ?: "",
                 directionB = directionBName,
