@@ -81,10 +81,6 @@ struct BusLinesView: View {
         .onAppear {
             getBusLines()
         }
-        .onDisappear {
-            let favoriteLines = self.selectedUrbanLines.map{ $0.id } + self.selectedSubrbanLines.map{ $0.id }
-            CacheManager().urbanFavourites = favoriteLines
-        }
     }
 }
 
@@ -95,14 +91,14 @@ extension BusLinesView {
         repository.getBusLines(areaType: .urban, dayType: .workday) { busLines, error in
             if let busLines = busLines {
                 self.urbanLines = busLines.map {
-                    BusLineUI(response: $0)
+                    BusLineUI(response: $0, areaType: .urban)
                 }
             }
         }
         repository.getBusLines(areaType: .suburban, dayType: .workday) { busLines, error in
             if let busLines = busLines {
                 self.subrbanLines = busLines.map {
-                    BusLineUI(response: $0)
+                    BusLineUI(response: $0, areaType: .suburban)
                 }
             }
         }

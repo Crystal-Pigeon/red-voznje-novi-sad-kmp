@@ -13,15 +13,17 @@ struct BusLineUI {
     let id: String
     let number: String
     let name: String
+    let areaType: Area
     var isSelected: Bool
 }
 
 extension BusLineUI {
-    init(response: BusLine) {
+    init(response: BusLine, areaType: Area) {
         var nameArray = response.name.components(separatedBy: " ")
         self.id = response.id
         self.number = nameArray.removeFirst()
         self.name = nameArray.joined(separator: " ")
+        self.areaType = areaType
         self.isSelected = CacheManager().favourites.contains(response.id)
     }
 }

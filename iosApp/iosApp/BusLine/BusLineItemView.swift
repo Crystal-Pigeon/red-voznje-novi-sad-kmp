@@ -42,11 +42,9 @@ struct BusLineListView: View {
                 .onTapGesture {
                     busLine.isSelected.toggle()
                     if busLine.isSelected {
-                        CacheManager().favourites.append(busLine.id)
+                        CacheManager().addToFavourites(id: busLine.id, areaType: busLine.areaType)
                     } else {
-                        CacheManager().favourites.removeAll(where: {
-                            $0 == busLine.id
-                        })
+                        CacheManager().removeFromFavourites(id: busLine.id)
                     }
                 }
         }
@@ -58,8 +56,8 @@ struct BusLineListView: View {
 
 #Preview {
     BusLineListView(busLines: .constant([
-        BusLineUI(id: "52", number: "52", name: "Veternik", isSelected: false),
-        BusLineUI(id: "52", number: "52", name: "Veternik", isSelected: false),
-        BusLineUI(id: "52", number: "52", name: "Veternik", isSelected: false)
+        BusLineUI(id: "52", number: "52", name: "Veternik", areaType: .suburban, isSelected: false),
+        BusLineUI(id: "52", number: "52", name: "Veternik", areaType: .suburban, isSelected: false),
+        BusLineUI(id: "52", number: "52", name: "Veternik", areaType: .suburban, isSelected: false)
     ]))
 }

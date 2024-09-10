@@ -12,11 +12,12 @@ import Shared
 struct HomeView: View {
 
     // MARK: - State properties
-    @Environment(\.presentationMode) var presentationMode
-    
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
-    @State private var favoriteBuses: [FavoriteBusUI] = []
+    
+    @State private var workdayBuses: [FavoriteBusUI] = []
+    @State private var saturdayBuses: [FavoriteBusUI] = []
+    @State private var sundayBuses: [FavoriteBusUI] = []
 
     // MARK: - Constants
     private var pages: [TabPage] {[
@@ -60,7 +61,8 @@ struct HomeView: View {
                     
                     TabView(selection: $selectedPageIndex) {
                         ForEach(pages, id: \.index) { page in
-                            FavoriteBusesListView(favoriteBuses: $favoriteBuses)
+                            let favoriteBuses = page.index == 0 ? $workdayBuses : page.index == 1 ? $saturdayBuses : $sundayBuses
+                            FavoriteBusesListView(favoriteBuses: favoriteBuses)
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
@@ -93,15 +95,12 @@ struct HomeView: View {
     }
 
     private func getFavoriteBuses() {
-        self.favoriteBuses = []
         let repository = BusScheduleRepository()
-        let favoriteLines = CacheManager().favourites
-        for lineId in favoriteLines {
-            repository.getScheduleByLine(areaType: .urban, dayType: .workday, busLine: lineId) { response, error in
-                if let response = response, !self.favoriteBuses.contains(where: { $0.id == lineId }) {
-                    self.favoriteBuses.insert(FavoriteBusUI(response: response), at: 0)
-                }
-            }
+        repository.getFavourites { response, error in
+            guard let response = response else { return }
+            self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0) })
+            self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0) })
+            self.sundayBuses = (response[.sunday] ?? []).map({ FavoriteBusUI(response: $0) })
         }
     }
 }
