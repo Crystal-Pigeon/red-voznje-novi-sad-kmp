@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     id("dev.icerock.mobile.multiplatform-resources")
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 object Versions {
@@ -51,6 +52,11 @@ kotlin {
             implementation("com.fleeksoft.ksoup:ksoup-ktor2:0.1.6-alpha1")
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
             implementation(Deps.Koin.core)
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.2")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
+
             // put your Multiplatform dependencies here
         }
 
