@@ -20,7 +20,7 @@ class CacheManager : KoinComponent {
     var urbanFavourites: List<String>
         get() {
             val allStrings = cache.load<String>(CacheIds.URBAN_FAVOURITES.id)
-            return allStrings?.split(", ") ?: emptyList()
+            return if(!allStrings.isNullOrEmpty()) allStrings.split(", ") else  emptyList()
         }
         set(value) {
             cache.save(CacheIds.URBAN_FAVOURITES.id, value.joinToString(separator = ", "))
@@ -29,7 +29,7 @@ class CacheManager : KoinComponent {
     var suburbanFavourites: List<String>
         get() {
             val allStrings = cache.load<String>(CacheIds.SUBURBAN_FAVOURITES.id)
-            return allStrings?.split(", ") ?: emptyList()
+            return if(!allStrings.isNullOrEmpty()) allStrings.split(", ") else  emptyList()
         }
         set(value) {
             cache.save(CacheIds.SUBURBAN_FAVOURITES.id, value.joinToString(separator = ", "))
@@ -42,6 +42,8 @@ class CacheManager : KoinComponent {
         if (urbanFavourites.contains(id)) {
             urbanFavourites = urbanFavourites.filter { it != id }//keeping the list immutable
         } else if (suburbanFavourites.contains(id)) {
+            val a = suburbanFavourites.filter { it != id }
+            a
             suburbanFavourites = suburbanFavourites.filter { it != id }
         }
     }

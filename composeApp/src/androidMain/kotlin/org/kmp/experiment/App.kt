@@ -61,9 +61,15 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
         // Call your suspend function here
         //showContent = vm.busScheduleRepository.getScheduleByLine()
         showContent = vm.busScheduleRepository.getFavourites()
+        val a = vm.cache.urbanFavourites
+        val b = vm.cache.suburbanFavourites
+        a
+        b
+        //vm.cache.removeFromFavourites("43")
 
     }
     //Text(showContent.toString(), Modifier.verticalScroll(scroll))
-    Text(vm.scheduleData.toString())
+    //Text(vm.scheduleData.toString())
+    Text(vm.cache.favourites.toString())
     //Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
 }
