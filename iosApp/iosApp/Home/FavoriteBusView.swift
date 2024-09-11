@@ -46,6 +46,10 @@ struct BusScheduleView: View {
                 .font(.regular(14))
                 .padding(.bottom, 4)
             
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: 0.5)
+                .foregroundColor(Color.textSecondary.opacity(0.5))
+            
             ForEach((isOpened ? longTimetable : shortTimetable).sorted(by: <), id: \.key) { time in
                 HStack(alignment: .top, spacing: 4) {
                     Text(time.key + ":")
@@ -67,7 +71,7 @@ struct FavoriteBusView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             BusHeaderView(number: bus.number, title: bus.name)
-            HStack(alignment: .top, spacing: 0) {
+            HStack(alignment: .top, spacing: 8) {
                 BusScheduleView(title: bus.scheduleTitleA, shortTimetable: bus.shortScheduleA, longTimetable: bus.scheduleA, isOpened: $bus.isOpened)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

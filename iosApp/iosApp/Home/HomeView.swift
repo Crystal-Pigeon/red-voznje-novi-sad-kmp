@@ -12,6 +12,8 @@ import Shared
 struct HomeView: View {
 
     // MARK: - State properties
+    @State private var isLoading = true
+    
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
     
@@ -59,17 +61,29 @@ struct HomeView: View {
                     }
                     .background(Color.brand)
                     
-                    TabView(selection: $selectedPageIndex) {
-                        ForEach(pages, id: \.index) { page in
-                            let favoriteBuses = page.index == 0 ? $workdayBuses : page.index == 1 ? $saturdayBuses : $sundayBuses
-                            FavoriteBusesListView(favoriteBuses: favoriteBuses)
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .scaleEffect(2)
+                    } else {
+                        if workdayBuses.isEmpty {
+                            EmptyView()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        } else {
+                            TabView(selection: $selectedPageIndex) {
+                                ForEach(pages, id: \.index) { page in
+                                    let favoriteBuses = page.index == 0 ? $workdayBuses : page.index == 1 ? $saturdayBuses : $sundayBuses
+                                    FavoriteBusesListView(favoriteBuses: favoriteBuses)
+                                }
+                            }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                            .animation(.easeInOut, value: selectedPageIndex)
+                            .onChange(of: selectedPageIndex) { newPage in
+                                selectedPageIndex = newPage
+                                underlineOffset = underlineWidth * CGFloat(newPage)
+                            }
                         }
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                    .animation(.easeInOut, value: selectedPageIndex)
-                    .onChange(of: selectedPageIndex) { newPage in
-                        selectedPageIndex = newPage
-                        underlineOffset = underlineWidth * CGFloat(newPage)
                     }
                 }
                 
@@ -97,6 +111,7 @@ struct HomeView: View {
     private func getFavoriteBuses() {
         let repository = BusScheduleRepository()
         repository.getFavourites { response, error in
+            self.isLoading = false
             guard let response = response else { return }
             self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0) })
             self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0) })
