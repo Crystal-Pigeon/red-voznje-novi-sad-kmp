@@ -52,10 +52,15 @@ class CacheManager : KoinComponent {
             Area.SUBURBAN -> if(!suburbanFavourites.contains(id)) suburbanFavourites = suburbanFavourites + listOf(id)
         }
     }
+
+    var scheduleStartDate: String?
+    get() = cache.load<String>(CacheIds.SCHEDULE_START_DATE.id)
+    set(value: String?) = cache.save(CacheIds.SCHEDULE_START_DATE.id, value)
 }
 
 enum class CacheIds(val id: String) {
     SCHEDULE_VALID_FROM("scheduleValidFrom"),
     URBAN_FAVOURITES("urban_favourites"),
-    SUBURBAN_FAVOURITES("suburban_favourites")
+    SUBURBAN_FAVOURITES("suburban_favourites"),
+    SCHEDULE_START_DATE("schedule_start_date")
 }
