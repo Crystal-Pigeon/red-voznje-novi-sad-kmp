@@ -1,7 +1,6 @@
 package org.kmp.Repositories
 
 import Cache
-import org.kmp.ktor.KtorClient
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import com.fleeksoft.ksoup.Ksoup
@@ -11,14 +10,14 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.kmp.Cache.CacheManager
-import org.kmp.ktor.Area
-import org.kmp.ktor.BusLine
-import org.kmp.ktor.DayType
+import org.kmp.ktor.*
 
 class BusScheduleRepository()/* : KoinComponent*/ {
     //private val ktorClient: KtorClient by inject()
@@ -143,5 +142,9 @@ class BusScheduleRepository()/* : KoinComponent*/ {
             }
         }
         deferredResults.mapValues { it.value.await() }
+    }
+
+    fun getScheduleStartDate(): Flow<ApiResponse<List<ScheduleStartDate>, ErrorBody>> = flow{
+        emit(ktorClient.getScheduleStartDate())
     }
 }
