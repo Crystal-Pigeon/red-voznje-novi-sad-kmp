@@ -16,7 +16,7 @@ data class BusLine(
 )
 
 @Serializable
-data class ScheduleStartDate(
+data class ScheduleStartDateResponse(
     val datum: String,
     val redv: String
 )

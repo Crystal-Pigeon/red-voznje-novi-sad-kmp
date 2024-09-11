@@ -49,13 +49,11 @@ class KtorClient {
         }.bodyAsText()
     }
 
-    suspend fun getScheduleStartDate(): ApiResponse<List<ScheduleStartDate>, ErrorBody> {
+    suspend fun getScheduleStartDate(): ApiResponse<List<ScheduleStartDateResponse>, ErrorBody> {
         //val response: String = client.get("http://www.gspns.rs/feeds/red-voznje").bodyAsText()
         return client.safeRequest {
             method = HttpMethod.Get
             url("http://www.gspns.rs/feeds/red-voznje")
-            //contentType(ContentType.Text.Html)
         }
-    //Json.decodeFromString(response)//TODO response handling
     }
 }

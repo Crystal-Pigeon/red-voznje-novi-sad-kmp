@@ -14,7 +14,7 @@ import org.kmp.Repositories.BusSchedule
 import org.kmp.ktor.Area
 import org.kmp.ktor.BusLine
 import org.kmp.ktor.DayType
-import org.kmp.ktor.ScheduleStartDate
+import org.kmp.ktor.ScheduleStartDateResponse
 import org.koin.androidx.compose.koinViewModel
 import red_voznje_novi_sad_kmp.composeapp.generated.resources.Res
 import red_voznje_novi_sad_kmp.composeapp.generated.resources.compose_multiplatform
@@ -34,7 +34,7 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
     var showContent by remember { mutableStateOf<Map<DayType,List<BusSchedule>>>(mapOf()) }
     val scroll = rememberScrollState(0)
     var test by remember { mutableStateOf<List<String>>(emptyList())}
-    var schedule by remember { mutableStateOf<ScheduleStartDate?>(null) }
+    var schedule by remember { mutableStateOf<ScheduleStartDateResponse?>(null) }
 
 
     /*var showContent by remember {

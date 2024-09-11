@@ -144,7 +144,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         deferredResults.mapValues { it.value.await() }
     }
 
-    fun getScheduleStartDate(): Flow<ApiResponse<List<ScheduleStartDate>, ErrorBody>> = flow{
+    fun getScheduleStartDate(): Flow<ApiResponse<List<ScheduleStartDateResponse>, ErrorBody>> = flow{
         emit(ktorClient.getScheduleStartDate())
     }
 }
