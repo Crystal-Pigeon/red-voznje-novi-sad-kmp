@@ -29,7 +29,7 @@ fun App() {
 
 @Composable
 fun TestScreen(vm: TestViewModel = koinViewModel()) {
-    //var showContent by remember { mutableStateOf<List<BusLine>>(emptyList()) }
+    var busLines by remember { mutableStateOf<List<BusLine>>(emptyList()) }
     //var showContent by remember { mutableStateOf<List<BusSchedule>?>(null) }
     var showContent by remember { mutableStateOf<Map<DayType,List<BusSchedule>>>(mapOf()) }
     val scroll = rememberScrollState(0)
@@ -47,7 +47,7 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
     }*/
     LaunchedEffect(Unit) {
         vm.fetchScheduleStartDates()
-        //showContent = vm.busScheduleRepository.getBusLines()
+        busLines = vm.busScheduleRepository.getBusLines()
         //showContent = vm.busScheduleRepository.getScheduleByLine()
         //showContent = vm.busScheduleRepository.getSchedulesByDayType(listOf("14","2."), Area.URBAN, DayType.WORKDAY)
         //val a = vm.busScheduleRepository.getBusLines(areaType = Area.SUBURBAN)
@@ -61,15 +61,11 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
         // Call your suspend function here
         //showContent = vm.busScheduleRepository.getScheduleByLine()
         showContent = vm.busScheduleRepository.getFavourites()
-        val a = vm.cache.urbanFavourites
-        val b = vm.cache.suburbanFavourites
-        a
-        b
         //vm.cache.removeFromFavourites("43")
 
     }
     //Text(showContent.toString(), Modifier.verticalScroll(scroll))
     //Text(vm.scheduleData.toString())
-    Text(vm.cache.favourites.toString())
+    Text(busLines.toString(), Modifier.verticalScroll(scroll))
     //Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
 }
