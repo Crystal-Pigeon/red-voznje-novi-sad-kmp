@@ -88,14 +88,14 @@ struct BusLinesView: View {
 extension BusLinesView {
     private func getBusLines() {
         let repository = BusScheduleRepository()
-        repository.getBusLines(areaType: .urban, dayType: .workday) { busLines, error in
+        repository.getBusLines() { busLines, error in
             if let busLines = busLines {
                 self.urbanLines = busLines.map {
                     BusLineUI(response: $0, areaType: .urban)
                 }
             }
         }
-        repository.getBusLines(areaType: .suburban, dayType: .workday) { busLines, error in
+        repository.getBusLines() { busLines, error in
             if let busLines = busLines {
                 self.subrbanLines = busLines.map {
                     BusLineUI(response: $0, areaType: .suburban)

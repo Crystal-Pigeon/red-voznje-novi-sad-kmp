@@ -24,15 +24,15 @@ class BusScheduleRepository()/* : KoinComponent*/ {
     private val ktorClient = KtorClient()
     private val cache = CacheManager()
 
-    suspend fun getBusLinesByArea(areaType: Area = Area.URBAN, dayType: DayType = DayType.WORKDAY): List<BusLine> {
-        val html = ktorClient.getBusLines(area = areaType, day = dayType)
+    suspend fun getBusLinesByArea(areaType: Area, dayType: DayType = DayType.WORKDAY): List<BusLine> {
+        val html = ktorClient.getBusLines(area = areaType, day = dayType, cache.scheduleStartDate ?: "2024-09-09")
         val document: Document = Ksoup.parse(html)
 
         val options = document.select("select#linija option")
 
         val busList = mutableListOf<BusLine>()
         for (option in options) {
-            busList.add(BusLine(option.attr("value"), option.text()))
+            busList.add(BusLine(option.attr("value"), option.text(), areaType))
         }
         return busList
     }
@@ -144,8 +144,8 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         deferredResults.mapValues { it.value.await() }
     }
 
-    fun getScheduleStartDate(): Flow<ApiResponse<List<ScheduleStartDateResponse>, ErrorBody>> = flow {
-        emit(ktorClient.getScheduleStartDate())
+    suspend fun getScheduleStartDate(): ApiResponse<ScheduleStartDateResponseList> {
+        return ktorClient.getScheduleStartDate()
     }
 
     suspend fun getBusLines(): List<BusLine> =
