@@ -28,9 +28,9 @@ fun App() {
 fun TestScreen(vm: TestViewModel = koinViewModel()) {
     var busLines by remember { mutableStateOf<List<BusLine>>(emptyList()) }
     //var showContent by remember { mutableStateOf<List<BusSchedule>?>(null) }
-    var showContent by remember { mutableStateOf<Map<DayType,List<BusSchedule>>>(mapOf()) }
+    var showContent by remember { mutableStateOf<Map<DayType, List<BusSchedule>>>(mapOf()) }
     val scroll = rememberScrollState(0)
-    var test by remember { mutableStateOf<List<String>>(emptyList())}
+    var test by remember { mutableStateOf<List<String>>(emptyList()) }
     var schedule by remember { mutableStateOf<ScheduleStartDateResponse?>(null) }
     val response = remember { mutableStateOf<ApiResponse<ScheduleStartDateResponseList>?>(null) }
 
@@ -66,19 +66,21 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
     }
     //Text(showContent.toString(), Modifier.verticalScroll(scroll))
     //Text(vm.scheduleData.toString())
-    //Text(busLines.toString(), Modifier.verticalScroll(scroll))
+    Text(busLines.toString(), Modifier.verticalScroll(scroll))
 
-when (val result = response.value) {
-    is ApiResponse.Success -> {
-        // Display the data
-        Text(result.data.toString())
-    }
-    is ApiResponse.Error -> {
-        // Display the error message
-        Text("Error: ${result.message}")
-    }
-    else -> {
-    }
-}
+    /*when (val result = response.value) {
+        is ApiResponse.Success -> {
+            // Display the data
+            Text(result.data.toString())
+        }
+
+        is ApiResponse.Error -> {
+            // Display the error message
+            Text("Error: ${result.message}")
+        }
+
+        else -> {
+        }
+    }*/
     //Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
 }
