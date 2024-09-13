@@ -7,58 +7,23 @@ import io.ktor.client.request.*
 import io.ktor.utils.io.errors.*
 import kotlinx.serialization.SerializationException
 
-suspend inline fun <reified T, reified E> HttpClient.safeRequest(
-    block: HttpRequestBuilder.() -> Unit,
-): ApiResponse<T, E> =
-    try {
-        val response = request { block() }
-        ApiResponse.Success(response.body())
-    } catch (e: ClientRequestException) {
-        ApiResponse.Error.HttpError(e.response.status.value, ErrorBody(e.response.status.value, e.response.status.description))
-    } catch (e: ServerResponseException) {
-        ApiResponse.Error.HttpError(e.response.status.value, ErrorBody(e.response.status.value, e.response.status.description))
-        //ApiResponse.Error.ServerError(ErrorBody(e.response.status.value, e.response.status.description))
-    } catch (e: IOException) {
-        ApiResponse.Error.NetworkError
-    } catch (e: SerializationException) {
-        ApiResponse.Error.SerializationError
-    }
+sealed class ApiResponse<out T> {
+    data class Success<T>(val data: T) : ApiResponse<T>()
+    data class Error(val message: String, val cause: Throwable? = null) : ApiResponse<Nothing>()
 
-suspend inline fun <reified E> ResponseException.errorBody(): E? =
-    try {
-        response.body()
-    } catch (e: SerializationException) {
-        null
-    }
+    fun isSuccess(): Boolean = this is Success<T>
+    fun isError(): Boolean = this is Error
 
-sealed class ApiResponse<out T, out E> {
-    /**
-     * Represents successful network responses (2xx).
-     */
-    data class Success<T>(val body: T) : ApiResponse<T, Nothing>()
-
-    sealed class Error<E> : ApiResponse<Nothing, E>() {
-        /**
-         * Represents server (50x) and client (40x) errors.
-         */
-        data class HttpError<E>(val code: Int, val errorBody: ErrorBody?) : Error<E>()
-        //data class ServerError<E>(val body: ErrorBody): Error<E>()
-        //message?
-
-        /**
-         * Represent IOExceptions and connectivity issues.
-         */
-        object NetworkError : Error<Nothing>()
-
-        /**
-         * Represent SerializationExceptions.
-         */
-        object SerializationError : Error<Nothing>()
-    }
+    fun getSuccessData(): T? = if (this is Success) this.data else null
+    fun getErrorMessage(): String? = if (this is Error) this.message else null
 }
 
-data class ErrorBody(
-    val statusCode: Int,  // Optional if you handle status codes outside of the body
-    val message: String,
-    val errorCode: String? = null  // Or any other relevant fields
-)
+suspend fun <T> handleApiResponse(apiCall: suspend () -> T): ApiResponse<T> {
+    return try {
+        val response = apiCall() // Execute the network call
+        ApiResponse.Success(response)
+    } catch (e: Throwable) {
+        // You can add more error handling logic here (e.g., parsing HTTP errors)
+        ApiResponse.Error(e.message ?: "Unknown error", e)
+    }
+}

@@ -12,19 +12,6 @@ import org.kmp.ktor.ApiResponse
 import org.kmp.ktor.ScheduleStartDateResponse
 
 class TestViewModel(val busScheduleRepository: BusScheduleRepository, val cache: CacheManager) : ViewModel() {
-    var scheduleData by mutableStateOf<List<ScheduleStartDateResponse>>(emptyList())
-    // Function to fetch schedule start dates
-    fun fetchScheduleStartDates() {
-        viewModelScope.launch {
-            busScheduleRepository.getScheduleStartDate().collect { response ->
-                when (response) {
-                    is ApiResponse.Error<*> -> {}
-                    is ApiResponse.Success<List<ScheduleStartDateResponse>> -> {
-                        scheduleData = response.body
-                        cache.scheduleStartDate = scheduleData.first().datum //TODO move to UI and cache it after user's choice
-                    }
-                }
-            }
-        }
-    }
+    var scheduleData by
+    mutableStateOf<ApiResponse<List<ScheduleStartDateResponse>>?>(null)
 }

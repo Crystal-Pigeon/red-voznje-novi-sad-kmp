@@ -11,10 +11,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.kmp.Repositories.BusSchedule
-import org.kmp.ktor.Area
-import org.kmp.ktor.BusLine
-import org.kmp.ktor.DayType
-import org.kmp.ktor.ScheduleStartDateResponse
+import org.kmp.ktor.*
 import org.koin.androidx.compose.koinViewModel
 import red_voznje_novi_sad_kmp.composeapp.generated.resources.Res
 import red_voznje_novi_sad_kmp.composeapp.generated.resources.compose_multiplatform
@@ -29,12 +26,13 @@ fun App() {
 
 @Composable
 fun TestScreen(vm: TestViewModel = koinViewModel()) {
-    //var showContent by remember { mutableStateOf<List<BusLine>>(emptyList()) }
+    var busLines by remember { mutableStateOf<List<BusLine>>(emptyList()) }
     //var showContent by remember { mutableStateOf<List<BusSchedule>?>(null) }
-    var showContent by remember { mutableStateOf<Map<DayType,List<BusSchedule>>>(mapOf()) }
+    var showContent by remember { mutableStateOf<Map<DayType, List<BusSchedule>>>(mapOf()) }
     val scroll = rememberScrollState(0)
-    var test by remember { mutableStateOf<List<String>>(emptyList())}
+    var test by remember { mutableStateOf<List<String>>(emptyList()) }
     var schedule by remember { mutableStateOf<ScheduleStartDateResponse?>(null) }
+    val response = remember { mutableStateOf<ApiResponse<ScheduleStartDateResponseList>?>(null) }
 
 
     /*var showContent by remember {
@@ -46,8 +44,8 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
         )
     }*/
     LaunchedEffect(Unit) {
-        vm.fetchScheduleStartDates()
-        //showContent = vm.busScheduleRepository.getBusLines()
+        //vm.fetchScheduleStartDates()
+        busLines = vm.busScheduleRepository.getBusLines()
         //showContent = vm.busScheduleRepository.getScheduleByLine()
         //showContent = vm.busScheduleRepository.getSchedulesByDayType(listOf("14","2."), Area.URBAN, DayType.WORKDAY)
         //val a = vm.busScheduleRepository.getBusLines(areaType = Area.SUBURBAN)
@@ -60,10 +58,29 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
         //Greeting().getScheduleByLine()
         // Call your suspend function here
         //showContent = vm.busScheduleRepository.getScheduleByLine()
-        showContent = vm.busScheduleRepository.getFavourites()
+        //showContent = vm.busScheduleRepository.getFavourites()
+        //vm.cache.removeFromFavourites("43")
+        //vm.scheduleData = vm.busScheduleRepository.getScheduleStartDate()
+        response.value = vm.busScheduleRepository.getScheduleStartDate()
 
     }
     //Text(showContent.toString(), Modifier.verticalScroll(scroll))
-    Text(vm.scheduleData.toString())
+    //Text(vm.scheduleData.toString())
+    Text(busLines.toString(), Modifier.verticalScroll(scroll))
+
+    /*when (val result = response.value) {
+        is ApiResponse.Success -> {
+            // Display the data
+            Text(result.data.toString())
+        }
+
+        is ApiResponse.Error -> {
+            // Display the error message
+            Text("Error: ${result.message}")
+        }
+
+        else -> {
+        }
+    }*/
     //Text(text = "Smijer A\n" + showContent.first.toString() + "\n" + "Smijer B\n" + showContent.second.toString())
 }

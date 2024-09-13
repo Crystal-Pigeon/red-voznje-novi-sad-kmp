@@ -12,7 +12,8 @@ enum class DayType(val id: String){
 
 data class BusLine(
     val id: String,
-    val name: String
+    val name: String,
+    val area: Area
 )
 
 @Serializable
@@ -20,3 +21,6 @@ data class ScheduleStartDateResponse(
     val datum: String,
     val redv: String
 )
+
+@Serializable
+data class ScheduleStartDateResponseList(val list: List<ScheduleStartDateResponse>)

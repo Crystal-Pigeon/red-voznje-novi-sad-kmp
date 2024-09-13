@@ -1,6 +1,7 @@
 package org.kmp.ktor
 
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -28,7 +29,7 @@ class KtorClient {
         expectSuccess = true
     }
 
-    suspend fun getBusLines(area: Area, day: DayType?, date: String = "2024-09-09"): String {
+    suspend fun getBusLines(area: Area, day: DayType?, date: String): String {
         return client.get("http://www.gspns.co.rs/red-voznje/lista-linija") {
             url {
                 parameters.append("rv", area.id)
@@ -49,11 +50,10 @@ class KtorClient {
         }.bodyAsText()
     }
 
-    suspend fun getScheduleStartDate(): ApiResponse<List<ScheduleStartDateResponse>, ErrorBody> {
-        //val response: String = client.get("http://www.gspns.rs/feeds/red-voznje").bodyAsText()
-        return client.safeRequest {
-            method = HttpMethod.Get
-            url("http://www.gspns.rs/feeds/red-voznje")
+    suspend fun getScheduleStartDate(): ApiResponse<ScheduleStartDateResponseList> {
+        return handleApiResponse<ScheduleStartDateResponseList> {
+            val response: List<ScheduleStartDateResponse> = client.get("http://www.gspns.rs/feeds/red-voznje").body()
+            ScheduleStartDateResponseList(response)
         }
     }
 }

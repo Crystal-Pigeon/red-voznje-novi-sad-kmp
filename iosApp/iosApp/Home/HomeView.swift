@@ -13,10 +13,10 @@ struct HomeView: View {
 
     // MARK: - State properties
     @State private var isLoading = true
-    
+
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
-    
+
     @State private var workdayBuses: [FavoriteBusUI] = []
     @State private var saturdayBuses: [FavoriteBusUI] = []
     @State private var sundayBuses: [FavoriteBusUI] = []
@@ -60,7 +60,7 @@ struct HomeView: View {
                             .animation(.easeInOut, value: underlineOffset)
                     }
                     .background(Color.brand)
-                    
+
                     if isLoading {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -86,7 +86,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                
+
                 NavigationLink(destination: BusLinesView()) {
                     Text("+")
                         .frame(width: 56, height: 56)
@@ -129,4 +129,45 @@ struct HomeView: View {
 
 #Preview("Home") {
     HomeView()
+}
+
+struct testView: View {
+    @State private var response: ApiResponse<ScheduleStartDateResponseList>? = nil
+
+    var body: some View {
+        VStack {
+            if let result = response {
+                if result.isSuccess() {
+                        if let data = result.getSuccessData()?.list {
+                            let a = data.first?.datum
+                            let _ = print("bilo sta")
+                            Text("Data: \(data)") // Use data.list to access the array
+                        }
+                    } else if result.isError() {
+                        if let errorMessage = result.getErrorMessage() {
+                            let _ = print("t error")
+                            Text("Error: \(errorMessage)")
+                        }
+                    }
+            } else {
+                let _ = print("nista se ne desava")
+                ProgressView()
+            }
+        }
+        .onAppear {
+            Task {
+                Task {
+                        let repository = BusScheduleRepository()
+                        do {
+                            // Call the API and update the response
+                            let result = try await repository.getScheduleStartDate()
+                            response = result // Update the response state
+                        } catch let error {
+                            print("test error: \(error)")
+                            //response = ApiResponse.Error(message: error.localizedDescription)
+                        }
+                    }
+            }
+        }
+    }
 }
