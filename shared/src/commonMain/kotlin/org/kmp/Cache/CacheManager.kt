@@ -20,7 +20,7 @@ class CacheManager : KoinComponent {
     var urbanFavourites: List<String>
         get() {
             val allStrings = cache.load<String>(CacheIds.URBAN_FAVOURITES.id)
-            return if(!allStrings.isNullOrEmpty()) allStrings.split(", ") else  emptyList()
+            return if (!allStrings.isNullOrEmpty()) allStrings.split(", ") else emptyList()
         }
         set(value) {
             cache.save(CacheIds.URBAN_FAVOURITES.id, value.joinToString(separator = ", "))
@@ -29,7 +29,7 @@ class CacheManager : KoinComponent {
     var suburbanFavourites: List<String>
         get() {
             val allStrings = cache.load<String>(CacheIds.SUBURBAN_FAVOURITES.id)
-            return if(!allStrings.isNullOrEmpty()) allStrings.split(", ") else  emptyList()
+            return if (!allStrings.isNullOrEmpty()) allStrings.split(", ") else emptyList()
         }
         set(value) {
             cache.save(CacheIds.SUBURBAN_FAVOURITES.id, value.joinToString(separator = ", "))
@@ -50,14 +50,18 @@ class CacheManager : KoinComponent {
 
     fun addToFavourites(id: String, areaType: Area) {
         when (areaType) {
-            Area.URBAN -> if(!urbanFavourites.contains(id)) urbanFavourites = urbanFavourites + listOf(id)//keeping the list immutable
-            Area.SUBURBAN -> if(!suburbanFavourites.contains(id)) suburbanFavourites = suburbanFavourites + listOf(id)
+            Area.URBAN -> if (!urbanFavourites.contains(id)) urbanFavourites =
+                urbanFavourites + listOf(id)//keeping the list immutable
+            Area.SUBURBAN -> if (!suburbanFavourites.contains(id)) suburbanFavourites = suburbanFavourites + listOf(id)
         }
     }
 
     var scheduleStartDate: String?
-    get() = cache.load<String>(CacheIds.SCHEDULE_START_DATE.id)
-    set(value: String?) = cache.save(CacheIds.SCHEDULE_START_DATE.id, value)
+        get() {
+            val data = cache.load<String>(CacheIds.SCHEDULE_START_DATE.id)
+            return if (data == "") null else data
+        }
+        set(value: String?) = cache.save(CacheIds.SCHEDULE_START_DATE.id, value)
 }
 
 enum class CacheIds(val id: String) {

@@ -28,7 +28,7 @@ fun App() {
 fun TestScreen(vm: TestViewModel = koinViewModel()) {
     var busLines by remember { mutableStateOf<List<BusLine>>(emptyList()) }
     //var showContent by remember { mutableStateOf<List<BusSchedule>?>(null) }
-    var showContent by remember { mutableStateOf<Map<DayType, List<BusSchedule>>>(mapOf()) }
+    var favourites by remember { mutableStateOf<Map<DayType, List<BusSchedule>>>(mapOf()) }
     val scroll = rememberScrollState(0)
     var test by remember { mutableStateOf<List<String>>(emptyList()) }
     var schedule by remember { mutableStateOf<ScheduleStartDateResponse?>(null) }
@@ -58,11 +58,10 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
         //Greeting().getScheduleByLine()
         // Call your suspend function here
         //showContent = vm.busScheduleRepository.getScheduleByLine()
-        //showContent = vm.busScheduleRepository.getFavourites()
+        //favourites = vm.busScheduleRepository.getFavourites()
         //vm.cache.removeFromFavourites("43")
         //vm.scheduleData = vm.busScheduleRepository.getScheduleStartDate()
         response.value = vm.busScheduleRepository.getScheduleStartDate()
-
     }
     //Text(showContent.toString(), Modifier.verticalScroll(scroll))
     //Text(vm.scheduleData.toString())

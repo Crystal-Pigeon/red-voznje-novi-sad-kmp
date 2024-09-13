@@ -26,6 +26,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
 
     suspend fun getBusLinesByArea(areaType: Area, dayType: DayType): List<BusLine> {
         val html = ktorClient.getBusLines(area = areaType, day = dayType, cache.scheduleStartDate ?: "2024-09-09")
+        if(html == null) return emptyList()
         val document: Document = Ksoup.parse(html)
 
         val options = document.select("select#linija option")
@@ -41,8 +42,8 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         areaType: Area = Area.URBAN,
         dayType: DayType = DayType.WORKDAY,
         busLine: String = "3B."
-    ): BusSchedule {
-        val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine)
+    ): BusSchedule? {
+        val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine) ?: return null
         val document: Document = Ksoup.parse(html)
 
         val timeCells = document.select("td[valign='top']")
@@ -79,7 +80,6 @@ class BusScheduleRepository()/* : KoinComponent*/ {
                 scheduleB = directionB.ifEmpty { null }
             )
         }
-
     }
 
     private fun parseDirection(cell: Element?): Map<String, String> {
@@ -112,9 +112,9 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         return times
     }
 
-    suspend fun getSchedulesByDayType(busLines: List<Pair<Area, String>>, dayType: DayType): List<BusSchedule> =
+    suspend fun getSchedulesByDayType(busLines: List<Pair<Area, String>>, dayType: DayType): List<BusSchedule?> =
         coroutineScope {
-            val deferredResults = mutableListOf<Deferred<BusSchedule>>()
+            val deferredResults = mutableListOf<Deferred<BusSchedule?>>()
             busLines.forEach {
                 deferredResults.add(async {
                     getScheduleByLine(
@@ -127,7 +127,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
             deferredResults.awaitAll()
         }
 
-    suspend fun getFavourites(): Map<DayType, List<BusSchedule>> = coroutineScope {
+    suspend fun getFavourites(): Map<DayType, List<BusSchedule?>> = coroutineScope {
         val favourites = mutableListOf<Pair<Area, String>>()
         cache.urbanFavourites.forEach {
             favourites.add(Pair<Area, String>(Area.URBAN, it))
@@ -135,7 +135,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         cache.suburbanFavourites.forEach {
             favourites.add(Pair<Area, String>(Area.SUBURBAN, it))
         }
-        val deferredResults: MutableMap<DayType, Deferred<List<BusSchedule>>> = mutableMapOf()
+        val deferredResults: MutableMap<DayType, Deferred<List<BusSchedule?>>> = mutableMapOf()
         DayType.entries.forEach {
             deferredResults[it] = async {
                 getSchedulesByDayType(busLines = favourites, dayType = it)

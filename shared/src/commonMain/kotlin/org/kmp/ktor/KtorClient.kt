@@ -29,17 +29,17 @@ class KtorClient {
         expectSuccess = true
     }
 
-    suspend fun getBusLines(area: Area, day: DayType?, date: String): String {
+    suspend fun getBusLines(area: Area, day: DayType?, date: String): String? {
         return client.get("http://www.gspns.co.rs/red-voznje/lista-linija") {
             url {
                 parameters.append("rv", area.id)
                 parameters.append("vaziod", date)
                 parameters.append("dan", day?.id ?: "R")
             }
-        }.bodyAsText()
+        }.validatedResponse()
     }
 
-    suspend fun getScheduleByLine(area: Area, day: DayType?, line: String, date: String = "2024-09-09"): String {
+    suspend fun getScheduleByLine(area: Area, day: DayType?, line: String, date: String = "2024-09-09"): String? {
         return client.get("http://www.gspns.co.rs/red-voznje/ispis-polazaka") {
             url {
                 parameters.append("rv", area.id)
@@ -47,7 +47,7 @@ class KtorClient {
                 parameters.append("dan", day?.id ?: "R")
                 parameters.append("linija[]", line)
             }
-        }.bodyAsText()
+        }.validatedResponse()
     }
 
     suspend fun getScheduleStartDate(): ApiResponse<ScheduleStartDateResponseList> {
@@ -55,5 +55,13 @@ class KtorClient {
             val response: List<ScheduleStartDateResponse> = client.get("http://www.gspns.rs/feeds/red-voznje").body()
             ScheduleStartDateResponseList(response)
         }
+    }
+}
+
+suspend fun HttpResponse.validatedResponse(): String? {
+    HttpStatusCode
+    return when (status.value) {
+        in 200..299 -> bodyAsText()
+        else -> null
     }
 }
