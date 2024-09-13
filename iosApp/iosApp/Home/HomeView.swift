@@ -101,6 +101,13 @@ struct HomeView: View {
             .background(Color.backgroundSecondary)
             .navigationTitle(SharedRes.strings().home_title.localized)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: AboutAppView()) {
+                        Image(systemName: "questionmark.circle")
+                    }
+                }
+            }
             .onAppear {
                 getFavoriteBuses()
             }
