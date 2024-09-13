@@ -42,8 +42,6 @@ class CacheManager : KoinComponent {
         if (urbanFavourites.contains(id)) {
             urbanFavourites = urbanFavourites.filter { it != id }//keeping the list immutable
         } else if (suburbanFavourites.contains(id)) {
-            val a = suburbanFavourites.filter { it != id }
-            a
             suburbanFavourites = suburbanFavourites.filter { it != id }
         }
     }

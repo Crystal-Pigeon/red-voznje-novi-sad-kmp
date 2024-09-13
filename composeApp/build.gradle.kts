@@ -29,6 +29,7 @@ kotlin {
             implementation("io.insert-koin:koin-androidx-compose:${koin}")
             implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
             implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+            implementation("androidx.navigation:navigation-compose:2.8.0")
 
         }
         commonMain.dependencies {

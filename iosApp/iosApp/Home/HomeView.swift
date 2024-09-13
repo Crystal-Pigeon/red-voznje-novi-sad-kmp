@@ -120,9 +120,9 @@ struct HomeView: View {
         repository.getFavourites { response, error in
             self.isLoading = false
             guard let response = response else { return }
-            self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0) })
-            self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0) })
-            self.sundayBuses = (response[.sunday] ?? []).map({ FavoriteBusUI(response: $0) })
+            self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+            self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+            self.sundayBuses = (response[.sunday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
         }
     }
 }

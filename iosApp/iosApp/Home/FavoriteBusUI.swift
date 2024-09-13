@@ -17,16 +17,16 @@ struct FavoriteBusUI {
     let scheduleTitleB: String?
     let scheduleA: [String:String]
     let scheduleB: [String:String]?
-    
+
     var isOpened: Bool = false
-    
+
     var shortScheduleA: [String:String] {
         let currentHours = [Date().hour - 1, Date().hour, Date().hour + 1]
         return scheduleA.filter({
             currentHours.contains(Int($0.key) ?? -1)
         })
     }
-    
+
     var shortScheduleB: [String:String]? {
         guard let scheduleB = self.scheduleB else { return nil }
         let currentHours = [Date().hour - 1, Date().hour, Date().hour + 1]
@@ -34,7 +34,7 @@ struct FavoriteBusUI {
             currentHours.contains(Int($0.key) ?? -1)
         })
     }
-    
+
     static var dummy = FavoriteBusUI(
         id: "52",
         number: "52",
