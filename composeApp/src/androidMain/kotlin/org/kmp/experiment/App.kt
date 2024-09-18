@@ -18,6 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.kmp.Repositories.BusSchedule
@@ -48,8 +49,16 @@ fun App() {
         lineColor = colorByResource(id = SharedRes.colors.line_color),
         blue = colorByResource(id = SharedRes.colors.brand)
     )
+
     RedVoznjeTheme {
         //TestScreen()
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setStatusBarColor(
+            color = RedVoznjeTheme.colors.blue
+        )
+        systemUiController.setNavigationBarColor(
+            color = RedVoznjeTheme.colors.primaryBackground
+        )
         BusLines()
     }
 }
