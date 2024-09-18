@@ -32,8 +32,9 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         val options = document.select("select#linija option")
 
         val busList = mutableListOf<BusLine>()
+        val favourites = cache.favourites
         for (option in options) {
-            busList.add(BusLine(option.attr("value"), option.text(), areaType))
+            busList.add(BusLine(option.attr("value"), option.text().substringBefore(" "), option.text().substringAfter(" "), areaType, favourites.contains(option.attr("value"))))
         }
         return busList
     }

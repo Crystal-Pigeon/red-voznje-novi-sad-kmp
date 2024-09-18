@@ -30,6 +30,7 @@ kotlin {
             implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
             implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
             implementation("androidx.navigation:navigation-compose:2.8.0")
+            implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
 
         }
         commonMain.dependencies {
@@ -42,6 +43,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
+            implementation("androidx.navigation:navigation-compose:2.8.0")
         }
 
         dependencies {
