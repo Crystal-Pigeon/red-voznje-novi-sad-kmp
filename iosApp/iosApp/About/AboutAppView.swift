@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct TitledSectionView: View {
     @State var title: String
@@ -43,26 +44,54 @@ struct AboutAppView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 24) {
-                TitledSectionView(title: "O Aplikaciji", description: "Aplikaciju smo razvili kako bismo građanima Novog Sada i turistima koji posete Novi Sad omogućili da pregledaju red vožnje.\n\nSvi podaci koji se nalaze u aplikaciji su sa javnog sajta JGSP.")
-                TitledSectionView(title: "Ažuriranje", description: "Uvek se prikazuje najaktuelniji red vožnje koji je dostupan i na sajtu JGSP-a.")
-                TitledSectionView(title: "Jezik", description: "Aplikacija je dostupna na Srpskom i Engleskom jeziku.", actionTitle: "Promeni jezik", actionCompletion: {
-                    openAppSettings()
-                })
-                TitledSectionView(title: "Prijavi gresku", description: "Ukoliko uočite bilo kakvu grešku u radu aplikacije budite slobodni da nam istu prijavite putem email-a.\n\nNeke greške mogu biti prouzrokovane zbog neispravnosti na samom sajtu JGSP-a, a mi ćemo nastojati da greške koje su do naše aplikacije rešimo u što kraćem roku.", actionTitle: "Prijavi grešku", actionCompletion: {
-                    sendEmail()
-                })
+                TitledSectionView(
+                    title: SharedRes.strings().about_app_about_app_section_title.localized,
+                    description: SharedRes.strings().about_app_about_app_section_description.localized,
+                    actionTitle: SharedRes.strings().about_app_about_app_section_action.localized,
+                    actionCompletion: {
+                        openWebsite()
+                    }
+                )
+                TitledSectionView(
+                    title: SharedRes.strings().about_app_updates_section_title.localized,
+                    description: SharedRes.strings().about_app_updates_section_description.localized
+                )
+                TitledSectionView(
+                    title: SharedRes.strings().about_app_language_section_title.localized,
+                    description: SharedRes.strings().about_app_language_section_description.localized,
+                    actionTitle: SharedRes.strings().about_app_language_section_action.localized,
+                    actionCompletion: {
+                        openAppSettings()
+                    }
+                )
+                TitledSectionView(
+                    title: SharedRes.strings().about_app_issue_section_title.localized,
+                    description: SharedRes.strings().about_app_issue_section_description.localized,
+                    actionTitle: SharedRes.strings().about_app_issue_section_action.localized,
+                    actionCompletion: {
+                        sendEmail()
+                    }
+                )
             }
             .padding(20)
-            .navigationTitle("O Aplikaciji")
+            .navigationTitle(SharedRes.strings().about_app_title.localized)
             
             Spacer()
             
-            Text("Powered by Crystal Pigeon")
+            Text(SharedRes.strings().about_app_footer.localized)
                 .font(.regular(12))
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundColor(Color.textSecondary)
         }
         .background(Color.backgroundPrimary)
+    }
+    
+    private func openWebsite() {
+        if let url = URL(string: "http://www.gspns.co.rs/red-voznje/gradski") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
     
     private func openAppSettings() {
@@ -73,14 +102,14 @@ struct AboutAppView: View {
         }
     }
     
-    private func sendEmail(subject: String = "Red Vožnje Novi Sad: Greška") {
-            let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            let mailtoURL = URL(string: "mailto:contact@crystalpigeon.com?subject=\(subjectEncoded)")!
-            
-            if UIApplication.shared.canOpenURL(mailtoURL) {
-                UIApplication.shared.open(mailtoURL)
-            }
+    private func sendEmail(subject: String = SharedRes.strings().about_app_issue_section_email_subject.localized) {
+        let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let mailtoURL = URL(string: "mailto:contact@crystalpigeon.com?subject=\(subjectEncoded)")!
+        
+        if UIApplication.shared.canOpenURL(mailtoURL) {
+            UIApplication.shared.open(mailtoURL)
         }
+    }
 }
 
 #Preview {

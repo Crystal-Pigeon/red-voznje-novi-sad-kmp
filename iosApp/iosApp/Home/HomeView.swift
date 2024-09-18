@@ -88,11 +88,11 @@ struct HomeView: View {
                 }
 
                 NavigationLink(destination: BusLinesView()) {
-                    Text("+")
+                    Image(systemName: "plus")
+                        .font(.regular(24))
                         .frame(width: 56, height: 56)
                         .background(Color.brand)
                         .foregroundStyle(.white)
-                        .font(.regular(24))
                         .clipShape(.circle)
                         .padding(.trailing, 32)
                         .padding(.bottom, 16)
@@ -119,10 +119,13 @@ struct HomeView: View {
         let repository = BusScheduleRepository()
         repository.getFavourites { response, error in
             self.isLoading = false
-            guard let response = response else { return }
-            self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
-            self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
-            self.sundayBuses = (response[.sunday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+            if let response = response {
+                self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+                self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+                self.sundayBuses = (response[.sunday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+            }  else if let error = error {
+                print(error.localizedDescription)
+            }
         }
     }
 }

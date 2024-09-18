@@ -14,4 +14,24 @@
     <string name="bus_lines_urban">Urban</string>
     <string name="bus_lines_suburban">Suburban</string>
     
+    <!-- ABOUT APP-->
+    <string name="about_app_title">About App</string>
+    
+    <string name="about_app_about_app_section_title">About the app</string>
+    <string name="about_app_about_app_section_description">We developed the Bus Schedule - Novi Sad app to provide our fellow citizens and visitors of this beautiful city with a simple and easy way to check bus schedules and plan their journeys easily.\n\nAll the data within the app is sourced directly from the official JGSP Novi Sad website, ensuring the information is accurate. However, the Bus Schedule - Novi Sad app is not responsible for any delays or cancellations of bus services.</string>
+    <string name="about_app_about_app_section_action">Visit official website</string>
+    
+    <string name="about_app_updates_section_title">Regular updates</string>
+    <string name="about_app_updates_section_description">The app is regularly updated in line with the schedules on the official JGSP website, so you always have the most reliable information.</string>
+    
+    <string name="about_app_language_section_title">Welcome to Novi Sad</string>
+    <string name="about_app_language_section_description">To make the app accessible to a broader audience, it is available in four languages: Serbian, English, Russian, and Hungarian. Whether you're a local or just visiting, we aim to make your journey planning through Novi Sad as simple and convenient as possible.</string>
+    <string name="about_app_language_section_action">Change language</string>
+    
+    <string name="about_app_issue_section_title">Report a problem</string>
+    <string name="about_app_issue_section_description">If you notice any issues in the app, feel free to contact us over email and we will try to fix the problem as soon as possible, but have in mind that some problems could be produced by JGSP's website</string>
+    <string name="about_app_issue_section_action">Report a problem</string>
+    <string name="about_app_issue_section_email_subject">Red Vožnje: Problem with app</string>
+    
+    <string name="about_app_footer">Powered by Crystal Pigeon</string>
 </resources>

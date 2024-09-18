@@ -18,12 +18,12 @@ struct BusLineUI {
 }
 
 extension BusLineUI {
-    init(response: BusLine, areaType: Area) {
+    init(response: BusLine) {
         var nameArray = response.name.components(separatedBy: " ")
         self.id = response.id
         self.number = nameArray.removeFirst()
         self.name = nameArray.joined(separator: " ")
-        self.areaType = areaType
+        self.areaType = response.area
         self.isSelected = CacheManager().favourites.contains(response.id)
     }
 }

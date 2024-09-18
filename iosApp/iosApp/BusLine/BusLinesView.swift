@@ -12,6 +12,8 @@ import Shared
 struct BusLinesView: View {
 
     // MARK: - State properties
+    @State private var isLoading = true
+    
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
 
@@ -63,16 +65,23 @@ struct BusLinesView: View {
             }
             .background(Color.brand)
 
-            TabView(selection: $selectedPageIndex) {
-                ForEach(pages, id: \.index) { page in
-                    BusLineListView(busLines: page.index == 0 ? $urbanLines : $subrbanLines)
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .scaleEffect(2)
+            } else {
+                TabView(selection: $selectedPageIndex) {
+                    ForEach(pages, id: \.index) { page in
+                        BusLineListView(busLines: page.index == 0 ? $urbanLines : $subrbanLines)
+                    }
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeInOut, value: selectedPageIndex)
-            .onChange(of: selectedPageIndex) { newPage in
-                selectedPageIndex = newPage
-                underlineOffset = underlineWidth * CGFloat(newPage)
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .animation(.easeInOut, value: selectedPageIndex)
+                .onChange(of: selectedPageIndex) { newPage in
+                    selectedPageIndex = newPage
+                    underlineOffset = underlineWidth * CGFloat(newPage)
+                }
             }
         }
         .background(Color.backgroundSecondary)
@@ -89,17 +98,16 @@ extension BusLinesView {
     private func getBusLines() {
         let repository = BusScheduleRepository()
         repository.getBusLines() { busLines, error in
+            self.isLoading = false
             if let busLines = busLines {
-                self.urbanLines = busLines.map {
-                    BusLineUI(response: $0, areaType: .urban)
-                }
-            }
-        }
-        repository.getBusLines() { busLines, error in
-            if let busLines = busLines {
-                self.subrbanLines = busLines.map {
-                    BusLineUI(response: $0, areaType: .suburban)
-                }
+                self.urbanLines = busLines
+                    .filter { $0.area == .urban }
+                    .map { BusLineUI(response: $0) }
+                self.subrbanLines = busLines
+                    .filter { $0.area == .suburban }
+                    .map { BusLineUI(response: $0) }
+            } else if let error = error {
+                print(error.localizedDescription)
             }
         }
     }
