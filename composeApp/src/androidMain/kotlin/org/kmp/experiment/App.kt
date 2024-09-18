@@ -2,12 +2,22 @@ package org.kmp.experiment
 
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.kmp.Repositories.BusSchedule
@@ -19,8 +29,28 @@ import red_voznje_novi_sad_kmp.composeapp.generated.resources.compose_multiplatf
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        TestScreen()
+    OnLightCustomColorsPalette = CustomColorsPalette(
+        primaryBackground = colorByResource(id = SharedRes.colors.primary_background),
+        secondaryBackground = colorByResource(id = SharedRes.colors.secondary_background),
+        tertiaryBackground = colorByResource(id = SharedRes.colors.tertiary_background),
+        primaryText = colorByResource(id = SharedRes.colors.primary_text),
+        secondaryText = colorByResource(id = SharedRes.colors.secondary_text),
+        lineColor = colorByResource(id = SharedRes.colors.line_color),
+        blue = colorByResource(id = SharedRes.colors.brand)
+    )
+
+    OnDarkCustomColorsPalette = CustomColorsPalette(
+        primaryBackground = colorByResource(id = SharedRes.colors.primary_background),
+        secondaryBackground = colorByResource(id = SharedRes.colors.secondary_background),
+        tertiaryBackground = colorByResource(id = SharedRes.colors.tertiary_background),
+        primaryText = colorByResource(id = SharedRes.colors.primary_text),
+        secondaryText = colorByResource(id = SharedRes.colors.secondary_text),
+        lineColor = colorByResource(id = SharedRes.colors.line_color),
+        blue = colorByResource(id = SharedRes.colors.brand)
+    )
+    RedVoznjeTheme {
+        //TestScreen()
+        BusLines()
     }
 }
 
@@ -65,7 +95,18 @@ fun TestScreen(vm: TestViewModel = koinViewModel()) {
     }
     //Text(showContent.toString(), Modifier.verticalScroll(scroll))
     //Text(vm.scheduleData.toString())
-    Text(busLines.toString(), Modifier.verticalScroll(scroll))
+    //Text(busLines.toString(), Modifier.verticalScroll(scroll))
+    LazyColumn {
+        items(busLines){ line ->
+            BusLineItem(line){ _, _ ->
+            }
+            Spacer(Modifier.height(8.dp))
+        }
+    }
+
+    val pagerState = rememberPagerState(pageCount = {
+        2
+    })
 
     /*when (val result = response.value) {
         is ApiResponse.Success -> {

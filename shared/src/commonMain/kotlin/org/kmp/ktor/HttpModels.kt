@@ -12,8 +12,10 @@ enum class DayType(val id: String){
 
 data class BusLine(
     val id: String,
+    val number: String,
     val name: String,
-    val area: Area
+    val area: Area,
+    var isFavourite: Boolean = false
 )
 
 @Serializable
