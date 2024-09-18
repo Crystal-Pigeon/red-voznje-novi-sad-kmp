@@ -19,10 +19,9 @@ struct BusLineUI {
 
 extension BusLineUI {
     init(response: BusLine) {
-        var nameArray = response.name.components(separatedBy: " ")
         self.id = response.id
-        self.number = nameArray.removeFirst()
-        self.name = nameArray.joined(separator: " ")
+        self.number = response.number
+        self.name = response.name
         self.areaType = response.area
         self.isSelected = CacheManager().favourites.contains(response.id)
     }
