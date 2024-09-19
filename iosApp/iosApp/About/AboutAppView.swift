@@ -43,51 +43,64 @@ struct TitledSectionView: View {
 struct AboutAppView: View {
     var body: some View {
         VStack {
-            VStack(alignment: .leading, spacing: 24) {
-                TitledSectionView(
-                    title: SharedRes.strings().about_app_about_app_section_title.localized,
-                    description: SharedRes.strings().about_app_about_app_section_description.localized,
-                    actionTitle: SharedRes.strings().about_app_about_app_section_action.localized,
-                    actionCompletion: {
-                        openWebsite()
-                    }
-                )
-                TitledSectionView(
-                    title: SharedRes.strings().about_app_updates_section_title.localized,
-                    description: SharedRes.strings().about_app_updates_section_description.localized
-                )
-                TitledSectionView(
-                    title: SharedRes.strings().about_app_language_section_title.localized,
-                    description: SharedRes.strings().about_app_language_section_description.localized,
-                    actionTitle: SharedRes.strings().about_app_language_section_action.localized,
-                    actionCompletion: {
-                        openAppSettings()
-                    }
-                )
-                TitledSectionView(
-                    title: SharedRes.strings().about_app_issue_section_title.localized,
-                    description: SharedRes.strings().about_app_issue_section_description.localized,
-                    actionTitle: SharedRes.strings().about_app_issue_section_action.localized,
-                    actionCompletion: {
-                        sendEmail()
-                    }
-                )
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    TitledSectionView(
+                        title: SharedRes.strings().about_app_about_app_section_title.localized,
+                        description: SharedRes.strings().about_app_about_app_section_description.localized
+                    )
+                    Divider()
+                    TitledSectionView(
+                        title: SharedRes.strings().about_app_updates_section_title.localized,
+                        description: SharedRes.strings().about_app_updates_section_description.localized
+                    )
+                    Divider()
+                    TitledSectionView(
+                        title: SharedRes.strings().about_app_language_section_title.localized,
+                        description: SharedRes.strings().about_app_language_section_description.localized,
+                        actionTitle: SharedRes.strings().about_app_language_section_action.localized,
+                        actionCompletion: {
+                            openAppSettings()
+                        }
+                    )
+                    Divider()
+                    TitledSectionView(
+                        title: SharedRes.strings().about_app_issue_section_title.localized,
+                        description: SharedRes.strings().about_app_issue_section_description.localized,
+                        actionTitle: SharedRes.strings().about_app_issue_section_action.localized,
+                        actionCompletion: {
+                            sendEmail()
+                        }
+                    )
+                    Divider()
+                    TitledSectionView(
+                        title: SharedRes.strings().about_app_riders_section_title.localized,
+                        description: SharedRes.strings().about_app_riders_section_description.localized,
+                        actionTitle: SharedRes.strings().about_app_riders_section_action.localized,
+                        actionCompletion: {
+                            openWebsite()
+                        }
+                    )
+                }
+                .padding(20)
+                .navigationTitle(SharedRes.strings().about_app_title.localized)
+                
+                Divider()
+                    .padding(.horizontal, 24)
+                
+                Text(SharedRes.strings().about_app_footer.localized)
+                    .font(.regular(12))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundColor(Color.textSecondary)
+                    .padding(16)
             }
-            .padding(20)
-            .navigationTitle(SharedRes.strings().about_app_title.localized)
-            
-            Spacer()
-            
-            Text(SharedRes.strings().about_app_footer.localized)
-                .font(.regular(12))
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(Color.textSecondary)
+            .scrollIndicators(.hidden)
         }
         .background(Color.backgroundPrimary)
     }
     
     private func openWebsite() {
-        if let url = URL(string: "http://www.gspns.co.rs/red-voznje/gradski") {
+        if let url = URL(string: "https://www.crystalpigeon.com") {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             }

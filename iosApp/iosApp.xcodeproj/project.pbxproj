@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		00060A162C91A12500F7E204 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00060A152C91A12500F7E204 /* EmptyView.swift */; };
+		001F87092C9C43FE00A6C4EF /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001F87082C9C43FE00A6C4EF /* Launch Screen.storyboard */; };
 		002405242C943BEB00E01BF1 /* AboutAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002405232C943BEB00E01BF1 /* AboutAppView.swift */; };
 		002650562C872755001996F2 /* StringResource+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650552C872755001996F2 /* StringResource+Extension.swift */; };
 		002650592C872C9C001996F2 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002650582C872C9C001996F2 /* Color+Extension.swift */; };
-		0058D38F2C8993B3008E442B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0058D38E2C8993B3008E442B /* Launch Screen.storyboard */; };
 		00A899542C88567100968803 /* BusLineUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899532C88567100968803 /* BusLineUI.swift */; };
 		00A899562C88569600968803 /* FavoriteBusUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899552C88569600968803 /* FavoriteBusUI.swift */; };
 		00A899582C88628B00968803 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A899572C88628B00968803 /* Font+Extension.swift */; };
@@ -28,10 +28,11 @@
 
 /* Begin PBXFileReference section */
 		00060A152C91A12500F7E204 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		001F87082C9C43FE00A6C4EF /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		001F870D2C9C449D00A6C4EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		002405232C943BEB00E01BF1 /* AboutAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppView.swift; sourceTree = "<group>"; };
 		002650552C872755001996F2 /* StringResource+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringResource+Extension.swift"; sourceTree = "<group>"; };
 		002650582C872C9C001996F2 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
-		0058D38E2C8993B3008E442B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		00A899532C88567100968803 /* BusLineUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLineUI.swift; sourceTree = "<group>"; };
 		00A899552C88569600968803 /* FavoriteBusUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBusUI.swift; sourceTree = "<group>"; };
 		00A899572C88628B00968803 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* red-voznje-novi-sad-kmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "red-voznje-novi-sad-kmp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,8 +150,8 @@
 				00A899502C88557400968803 /* Home */,
 				00FE3B6E2C81FCBD003EA8C2 /* BusLine */,
 				002405222C943BDA00E01BF1 /* About */,
-				0058D38E2C8993B3008E442B /* Launch Screen.storyboard */,
-				7555FF8C242A565B00829871 /* Info.plist */,
+				001F87082C9C43FE00A6C4EF /* Launch Screen.storyboard */,
+				001F870D2C9C449D00A6C4EF /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
@@ -231,7 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0058D38F2C8993B3008E442B /* Launch Screen.storyboard in Resources */,
+				001F87092C9C43FE00A6C4EF /* Launch Screen.storyboard in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
@@ -358,7 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -415,7 +415,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -441,7 +441,7 @@
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Red Vožnje";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -472,7 +472,7 @@
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Red Vožnje";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
