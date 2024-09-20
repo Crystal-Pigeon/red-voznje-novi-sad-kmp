@@ -21,18 +21,27 @@ struct FavoriteBusUI {
     var isOpened: Bool = false
 
     var shortScheduleA: [String:String] {
-        let currentHours = [Date().hour - 1, Date().hour, Date().hour + 1]
-        return scheduleA.filter({
-            currentHours.contains(Int($0.key) ?? -1)
-        })
+        return getShortSchedule(scheduleA)
     }
 
     var shortScheduleB: [String:String]? {
         guard let scheduleB = self.scheduleB else { return nil }
-        let currentHours = [Date().hour - 1, Date().hour, Date().hour + 1]
-        return scheduleB.filter({
+        return getShortSchedule(scheduleB)
+    }
+    
+    private func getShortSchedule(_ schedule: [String:String]) -> [String:String] {
+        if schedule.count <= 3 { return schedule }
+        let currentTime = Date()
+        let currentHours = [currentTime.hour - 1, currentTime.hour, currentTime.hour + 1]
+        let shortSchedule = schedule.filter({
             currentHours.contains(Int($0.key) ?? -1)
         })
+        let reducedSchedule = Dictionary(
+            uniqueKeysWithValues: schedule.sorted(by: {
+                return Int($0.key) ?? -1 < Int($1.key) ?? -1
+            }).prefix(3).map { $0 }
+        )
+        return shortSchedule.count < 3 ? reducedSchedule : shortSchedule
     }
 
     static var dummy = FavoriteBusUI(

@@ -46,19 +46,26 @@ struct BusScheduleView: View {
                 .font(.regular(14))
                 .padding(.bottom, 4)
             
-            Rectangle()
-                .frame(maxWidth: .infinity, maxHeight: 0.5)
-                .foregroundColor(Color.textSecondary.opacity(0.5))
-            
-            ForEach((isOpened ? longTimetable : shortTimetable).sorted(by: <), id: \.key) { time in
-                HStack(alignment: .top, spacing: 4) {
-                    Text(time.key + ":")
-                        .foregroundStyle(Int(time.key) == Date().hour ? Color.brand : Color.textPrimary)
-                        .font(.bold(14))
-                    Text(time.value)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(Color.textPrimary)
-                        .font(.regular(14))
+            if longTimetable.isEmpty {
+                    Text("There is no available schedule for selected day")
+                        .foregroundStyle(Color.textSecondary)
+                        .font(.regular(16))
+                        .padding(.bottom, 16)
+            } else {
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: 0.5)
+                    .foregroundColor(Color.textSecondary.opacity(0.5))
+                
+                ForEach((isOpened ? longTimetable : shortTimetable).sorted(by: <), id: \.key) { time in
+                    HStack(alignment: .top, spacing: 4) {
+                        Text(time.key + ":")
+                            .foregroundStyle(Int(time.key) == Date().hour ? Color.brand : Color.textPrimary)
+                            .font(.bold(14))
+                        Text(time.value)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(Color.textPrimary)
+                            .font(.regular(14))
+                    }
                 }
             }
         }
