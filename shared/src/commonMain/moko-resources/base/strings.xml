@@ -9,6 +9,7 @@
     <string name="bus_lines_title">Bus Lines</string>
     <string name="bus_lines_urban">Urban</string>
     <string name="bus_lines_suburban">Suburban</string>
+    <string name="bus_lines_no_data_message">There are no available bus lines</string>
     <string name="about_app_title">About</string>
     <string name="about_app_about_app_section_title">About the app</string>
     <string name="about_app_about_app_section_description">We developed the Bus Schedule - Novi Sad app to provide our fellow citizens and visitors of this beautiful city with a simple and easy way to check bus schedules and plan their journeys easily.\n\nAll the data within the app is sourced directly from the official JGSP Novi Sad website, ensuring the information is accurate. However, the Bus Schedule - Novi Sad app is not responsible for any delays or cancellations of bus services.</string>
@@ -25,6 +26,7 @@
     <string name="about_app_riders_section_description">We’re Crystal Pigeon, a company from Novi Sad, and we’re excited to be a part of your everyday adventures! We aim to make getting around Novi Sad as easy and enjoyable as possible. If you need help or have suggestions, feel free to reach out!</string>
     <string name="about_app_riders_section_action">Meet us</string>
     <string name="about_app_footer">Powered by Crystal Pigeon</string>
+    <string name="error_no_internet_connection">No internet connection. Please check your internet settings and try again.</string>
 
     <!-- undefined-->
 </resources>

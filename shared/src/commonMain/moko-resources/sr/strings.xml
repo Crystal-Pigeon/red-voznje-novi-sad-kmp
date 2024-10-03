@@ -9,6 +9,7 @@
     <string name="bus_lines_title">Autobuske Linije</string>
     <string name="bus_lines_urban">Gradski</string>
     <string name="bus_lines_suburban">Prigradski</string>
+    <string name="bus_lines_no_data_message">Nema dostupnih linija za prikaz</string>
     <string name="about_app_title">O Aplikaciji</string>
     <string name="about_app_about_app_section_title">O Aplikaciji</string>
     <string name="about_app_about_app_section_description">Aplikaciju Red vožnje - Novi Sad razvili smo s ciljem da našim sugrađanima, kao i svim posetiocima našeg prelepog grada, omogućimo lak i brz pregled redova vožnje, kako bi jednostavno mogli da isplaniraju svoje putovanje.\n\nPodaci u aplikaciji preuzeti su sa zvaničnog sajta JGSP Novi Sad, čime obezbeđujemo tačnost informacija. Ipak, napominjemo da aplikacija Red vožnje - Novi Sad ne može biti odgovorna za eventualna kašnjenja ili izostanke autobusa.</string>
@@ -25,6 +26,7 @@
     <string name="about_app_riders_section_description">Mi smo Crystal Pigeon, lokalna kompanija iz Novog Sada, i raduje nas što smo deo vaših svakodnevnih avantura! Trudimo se da vam kretanje kroz Novi Sad bude što lakše i prijatnije. Ako vam zatreba pomoć ili imate neke predloge, slobodno nam se obratite!</string>
     <string name="about_app_riders_section_action">Upoznaj nas</string>
     <string name="about_app_footer">Powered by Crystal Pigeon</string>
+    <string name="error_no_internet_connection">Nema interneta. Proveri svoja podešavanja i pokušaj ponovo.</string>
 
     <!-- undefined-->
 </resources>

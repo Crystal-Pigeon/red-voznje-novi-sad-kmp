@@ -13,6 +13,7 @@ struct BusLinesView: View {
 
     // MARK: - State properties
     @State private var isLoading = true
+    @State private var errorMessage: String? = nil
     
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
@@ -71,16 +72,21 @@ struct BusLinesView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .scaleEffect(2)
             } else {
-                TabView(selection: $selectedPageIndex) {
-                    ForEach(pages, id: \.index) { page in
-                        BusLineListView(busLines: page.index == 0 ? $urbanLines : $subrbanLines)
+                if urbanLines.isEmpty && subrbanLines.isEmpty {
+                    EmptyView(state: errorMessage == nil ? .emptyLines : .error(errorMessage!))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    TabView(selection: $selectedPageIndex) {
+                        ForEach(pages, id: \.index) { page in
+                            BusLineListView(busLines: page.index == 0 ? $urbanLines : $subrbanLines)
+                        }
                     }
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .animation(.easeInOut, value: selectedPageIndex)
-                .onChange(of: selectedPageIndex) { newPage in
-                    selectedPageIndex = newPage
-                    underlineOffset = underlineWidth * CGFloat(newPage)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .animation(.easeInOut, value: selectedPageIndex)
+                    .onChange(of: selectedPageIndex) { oldValue, newValue in
+                        selectedPageIndex = newValue
+                        underlineOffset = underlineWidth * CGFloat(newValue)
+                    }
                 }
             }
         }
@@ -107,7 +113,7 @@ extension BusLinesView {
                     .filter { $0.area == .suburban }
                     .map { BusLineUI(response: $0) }
             } else if let error = error {
-                print(error.localizedDescription)
+                errorMessage = error.localizedDescription
             }
         }
     }

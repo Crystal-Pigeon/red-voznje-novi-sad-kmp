@@ -13,6 +13,7 @@ struct HomeView: View {
 
     // MARK: - State properties
     @State private var isLoading = true
+    @State private var errorMessage: String? = nil
 
     @State private var selectedPageIndex = 0
     @State private var underlineOffset: CGFloat = 0
@@ -68,7 +69,7 @@ struct HomeView: View {
                             .scaleEffect(2)
                     } else {
                         if workdayBuses.isEmpty {
-                            EmptyView()
+                            EmptyView(state: errorMessage == nil ? .emptyHome : .error(errorMessage!))
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
                             TabView(selection: $selectedPageIndex) {
@@ -140,7 +141,7 @@ struct HomeView: View {
                         FavoriteBusUI(response: $0 as! BusSchedule)
                     }
             }  else if let error = error {
-                print(error.localizedDescription)
+                errorMessage = error.localizedDescription
             }
         }
     }

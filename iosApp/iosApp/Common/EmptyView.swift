@@ -9,14 +9,43 @@
 import SwiftUI
 import Shared
 
+enum EmptyViewState {
+    case emptyHome
+    case emptyLines
+    case error(String)
+    
+    var imageName: String {
+        switch self {
+        case .emptyHome, .emptyLines:
+            return "bus.fill"
+        case .error:
+            return "exclamationmark.octagon.fill"
+        }
+    }
+    
+    var message: String {
+        switch self {
+        case .emptyHome:
+            return SharedRes.strings().home_no_data_message.localized
+        case .emptyLines:
+            return SharedRes.strings().bus_lines_no_data_message.localized
+        case .error(let message):
+            return message
+        }
+    }
+}
+
 struct EmptyView: View {
+    
+    var state: EmptyViewState
+    
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
-            Image(systemName: "bus.fill")
+            Image(systemName: state.imageName)
                 .font(.system(size: UIScreen.main.bounds.width * 0.3))
                 .foregroundStyle(Color.textSecondary.opacity(0.5))
             
-            Text(SharedRes.strings().home_no_data_message.localized)
+            Text(state.message)
                 .multilineTextAlignment(.center)
                 .font(.regular(16))
                 .foregroundStyle(Color.textSecondary)
@@ -26,5 +55,5 @@ struct EmptyView: View {
 }
 
 #Preview {
-    EmptyView()
+    EmptyView(state: .emptyHome)
 }
