@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Crystal Pigeon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hM-uK-EOR">
-                                <rect key="frame" x="132" y="806" width="129" height="12"/>
+                                <rect key="frame" x="132" y="782" width="129" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +51,7 @@
                         <constraints>
                             <constraint firstItem="D6U-LT-qYo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5i8-Me-Dsp"/>
                             <constraint firstItem="zKf-vp-bP6" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.4" id="JaV-sG-VUb"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="0hM-uK-EOR" secondAttribute="bottom" id="P1m-YV-K0l"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="0hM-uK-EOR" secondAttribute="bottom" constant="24" id="P1m-YV-K0l"/>
                             <constraint firstItem="0hM-uK-EOR" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="cKP-qA-d29"/>
                             <constraint firstItem="D6U-LT-qYo" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="npK-zW-UEq"/>
                         </constraints>

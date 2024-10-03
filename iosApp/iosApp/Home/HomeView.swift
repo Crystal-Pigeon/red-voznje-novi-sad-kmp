@@ -79,9 +79,9 @@ struct HomeView: View {
                             }
                             .tabViewStyle(.page(indexDisplayMode: .never))
                             .animation(.easeInOut, value: selectedPageIndex)
-                            .onChange(of: selectedPageIndex) { newPage in
-                                selectedPageIndex = newPage
-                                underlineOffset = underlineWidth * CGFloat(newPage)
+                            .onChange(of: selectedPageIndex) { oldValue, newValue in
+                                selectedPageIndex = newValue
+                                underlineOffset = underlineWidth * CGFloat(newValue)
                             }
                         }
                     }
@@ -116,6 +116,7 @@ struct HomeView: View {
     }
 
     private func getFavoriteBuses() {
+        self.isLoading = true
         let repository = BusScheduleRepository()
         repository.getFavourites { response, error in
             self.isLoading = false
@@ -132,45 +133,4 @@ struct HomeView: View {
 
 #Preview("Home") {
     HomeView()
-}
-
-struct testView: View {
-    @State private var response: ApiResponse<ScheduleStartDateResponseList>? = nil
-
-    var body: some View {
-        VStack {
-            if let result = response {
-                if result.isSuccess() {
-                        if let data = result.getSuccessData()?.list {
-                            let a = data.first?.datum
-                            let _ = print("bilo sta")
-                            Text("Data: \(data)") // Use data.list to access the array
-                        }
-                    } else if result.isError() {
-                        if let errorMessage = result.getErrorMessage() {
-                            let _ = print("t error")
-                            Text("Error: \(errorMessage)")
-                        }
-                    }
-            } else {
-                let _ = print("nista se ne desava")
-                ProgressView()
-            }
-        }
-        .onAppear {
-            Task {
-                Task {
-                        let repository = BusScheduleRepository()
-                        do {
-                            // Call the API and update the response
-                            let result = try await repository.getScheduleStartDate()
-                            response = result // Update the response state
-                        } catch let error {
-                            print("test error: \(error)")
-                            //response = ApiResponse.Error(message: error.localizedDescription)
-                        }
-                    }
-            }
-        }
-    }
 }

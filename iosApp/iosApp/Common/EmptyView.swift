@@ -12,7 +12,6 @@ import Shared
 struct EmptyView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
-//            Image(uiImage: SharedRes.images().icon_success.toUIImage() ?? UIImage())
             Image(systemName: "bus.fill")
                 .font(.system(size: UIScreen.main.bounds.width * 0.3))
                 .foregroundStyle(Color.textSecondary.opacity(0.5))
