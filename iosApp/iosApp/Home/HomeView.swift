@@ -22,11 +22,11 @@ struct HomeView: View {
     @State private var sundayBuses: [FavoriteBusUI] = []
 
     // MARK: - Constants
-    private var pages: [TabPage] {[
+    private var pages: [TabPage] = [
         TabPage(index: 0, name: SharedRes.strings().home_workday.localized),
         TabPage(index: 1, name: SharedRes.strings().home_saturday.localized),
         TabPage(index: 2, name: SharedRes.strings().home_sunday.localized)
-    ]}
+    ]
 
     private var underlineWidth: CGFloat {
         UIScreen.main.bounds.width / CGFloat(pages.count)
@@ -121,9 +121,24 @@ struct HomeView: View {
         repository.getFavourites { response, error in
             self.isLoading = false
             if let response = response {
-                self.workdayBuses = (response[.workday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
-                self.saturdayBuses = (response[.saturday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
-                self.sundayBuses = (response[.sunday] ?? []).map({ FavoriteBusUI(response: $0 as! BusSchedule) })
+                self.workdayBuses = (response[.workday] ?? [])
+                    .filter {
+                        $0 is BusSchedule
+                    }.map{
+                        FavoriteBusUI(response: $0 as! BusSchedule)
+                    }
+                self.saturdayBuses = (response[.saturday] ?? [])
+                    .filter {
+                        $0 is BusSchedule
+                    }.map{
+                        FavoriteBusUI(response: $0 as! BusSchedule)
+                    }
+                self.sundayBuses = (response[.sunday] ?? [])
+                    .filter {
+                        $0 is BusSchedule
+                    }.map{
+                        FavoriteBusUI(response: $0 as! BusSchedule)
+                    }
             }  else if let error = error {
                 print(error.localizedDescription)
             }
