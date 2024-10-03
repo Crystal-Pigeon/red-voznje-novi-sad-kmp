@@ -25,18 +25,30 @@ class BusScheduleRepository()/* : KoinComponent*/ {
     private val cache = CacheManager()
 
     suspend fun getBusLinesByArea(areaType: Area, dayType: DayType): List<BusLine> {
-        val html = ktorClient.getBusLines(area = areaType, day = dayType, cache.scheduleStartDate ?: "2024-10-01")
-        if(html == null) return emptyList()
-        val document: Document = Ksoup.parse(html)
+        try {
+            val html = ktorClient.getBusLines(area = areaType, day = dayType, cache.scheduleStartDate ?: "2024-10-01")
+                ?: return emptyList()
+            val document: Document = Ksoup.parse(html)
 
-        val options = document.select("select#linija option")
+            val options = document.select("select#linija option")
 
-        val busList = mutableListOf<BusLine>()
-        val favourites = cache.favourites
-        for (option in options) {
-            busList.add(BusLine(option.attr("value"), option.text().substringBefore(" "), option.text().substringAfter(" "), areaType, favourites.contains(option.attr("value"))))
+            val busList = mutableListOf<BusLine>()
+            val favourites = cache.favourites
+            for (option in options) {
+                busList.add(
+                    BusLine(
+                        option.attr("value"),
+                        option.text().substringBefore(" "),
+                        option.text().substringAfter(" "),
+                        areaType,
+                        favourites.contains(option.attr("value"))
+                    )
+                )
+            }
+            return busList
+        } catch (e: Exception) {
+            return emptyList()
         }
-        return busList
     }
 
     suspend fun getScheduleByLine(
@@ -44,42 +56,46 @@ class BusScheduleRepository()/* : KoinComponent*/ {
         dayType: DayType = DayType.WORKDAY,
         busLine: String = "3B."
     ): BusSchedule? {
-        val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine) ?: return null
-        val document: Document = Ksoup.parse(html)
+        try {
+            val html = ktorClient.getScheduleByLine(area = areaType, day = dayType, line = busLine) ?: return null
+            val document: Document = Ksoup.parse(html)
 
-        val timeCells = document.select("td[valign='top']")
+            val timeCells = document.select("td[valign='top']")
 
-        val directionA = parseDirection(timeCells.getOrNull(0))
-        val directionB = parseDirection(timeCells.getOrNull(1))
+            val directionA = parseDirection(timeCells.getOrNull(0))
+            val directionB = parseDirection(timeCells.getOrNull(1))
 
-        // Select the <th> elements for direction names
-        val directionHeaders = document.select("th")
+            // Select the <th> elements for direction names
+            val directionHeaders = document.select("th")
 
-        // Find the direction names in <th> tags (A and B)
-        val directionAName =
-            directionHeaders.firstOrNull { it.text().contains("Смер A") }?.text()?.substringAfter(":")?.trim()
-        val directionBName =
-            directionHeaders.firstOrNull { it.text().contains("Смер B") }?.text()?.substringAfter(":")?.trim()
+            // Find the direction names in <th> tags (A and B)
+            val directionAName =
+                directionHeaders.firstOrNull { it.text().contains("Смер A") }?.text()?.substringAfter(":")?.trim()
+            val directionBName =
+                directionHeaders.firstOrNull { it.text().contains("Смер B") }?.text()?.substringAfter(":")?.trim()
 
-        val lineInfoElement = document.selectFirst("div.table-title")
+            val lineInfoElement = document.selectFirst("div.table-title")
 
-        // Check if the element exists and extract the text
-        return with(lineInfoElement) {
-            val lineInfoText = this?.text()?.trim() ?: ""
+            // Check if the element exists and extract the text
+            return with(lineInfoElement) {
+                val lineInfoText = this?.text()?.trim() ?: ""
 
-            // Extract the ID and line name from the text (e.g., "Линија: 2 CENTAR - NOVO NASELJE")
-            val lineName = lineInfoText.substringAfter(" ").substringAfter(" ").substringAfter(" ").trim()
-            val lineNumber = lineInfoText.substringAfter(" ").substringAfter(" ").substringBefore(" ")
+                // Extract the ID and line name from the text (e.g., "Линија: 2 CENTAR - NOVO NASELJE")
+                val lineName = lineInfoText.substringAfter(" ").substringAfter(" ").substringAfter(" ").trim()
+                val lineNumber = lineInfoText.substringAfter(" ").substringAfter(" ").substringBefore(" ")
 
-            BusSchedule(
-                id = busLine,
-                number = lineNumber,
-                lineName = lineName,
-                directionA = directionAName ?: "",
-                directionB = directionBName,
-                scheduleA = directionA,
-                scheduleB = directionB.ifEmpty { null }
-            )
+                BusSchedule(
+                    id = busLine,
+                    number = lineNumber,
+                    lineName = lineName,
+                    directionA = directionAName ?: "",
+                    directionB = directionBName,
+                    scheduleA = directionA,
+                    scheduleB = directionB.ifEmpty { null }
+                )
+            }
+        } catch (e: Exception) {
+            return null
         }
     }
 
@@ -172,6 +188,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
                     }
                 )
             }
-            deferredResults.awaitAll().flatten().distinct().sortedBy { it.id.filter { character -> character.isDigit() }.toInt() }
+            deferredResults.awaitAll().flatten().distinct()
+                .sortedBy { it.id.filter { character -> character.isDigit() }.toInt() }
         }
 }
