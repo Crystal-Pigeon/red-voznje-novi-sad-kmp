@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <!-- GENERAL ACTIONS-->
-    
-    <!-- HOME-->
     <string name="home_title">Red Vožnje</string>
     <string name="home_workday">Radni dan</string>
     <string name="home_saturday">Subota</string>
     <string name="home_sunday">Nedelja</string>
-    <string name="home_no_data_message">Pritisnite + kako biste izabrali omiljene autobuske linije</string>
-    
-    <!-- BUS LINES-->
+    <string name="home_no_data_message">Trenutno nemaš nijednu izabranu liniju.\nKlikom na “+” izaberi svoje omiljene rute.</string>
+    <string name="home_bus_no_data_message">Nema dostupan raspored za izabrani dan</string>
     <string name="bus_lines_title">Autobuske Linije</string>
     <string name="bus_lines_urban">Gradski</string>
     <string name="bus_lines_suburban">Prigradski</string>
-    
-    <!-- ABOUT APP-->
     <string name="about_app_title">O Aplikaciji</string>
-    
     <string name="about_app_about_app_section_title">O Aplikaciji</string>
-    <string name="about_app_about_app_section_description">Aplikaciju Red vožnje - Novi Sad razvili smo s ciljem da našim sugrađanima, kao i svim posetiocima našeg prelepog grada, omogućimo lak i brz pregled redova vožnje, kako bi jednostavno mogli da isplaniraju svoje putovanje.\n\nIza aplikacije stoji kompanija Crystal Pigeon iz Novog Sada. Radujemo se što smo deo vaše svakodnevnice i što vam pomažemo da se lakše krećete kroz Novi Sad!\n\nPodaci u aplikaciji preuzeti su sa zvaničnog sajta JGSP Novi Sad, čime obezbeđujemo tačnost informacija. Ipak, napominjemo da aplikacija Red vožnje - Novi Sad ne može biti odgovorna za eventualna kašnjenja ili izostanke autobusa.</string>
-    <string name="about_app_about_app_section_action">Poseti oficijalni sajt</string>
-    
+    <string name="about_app_about_app_section_description">Aplikaciju Red vožnje - Novi Sad razvili smo s ciljem da našim sugrađanima, kao i svim posetiocima našeg prelepog grada, omogućimo lak i brz pregled redova vožnje, kako bi jednostavno mogli da isplaniraju svoje putovanje.\n\nPodaci u aplikaciji preuzeti su sa zvaničnog sajta JGSP Novi Sad, čime obezbeđujemo tačnost informacija. Ipak, napominjemo da aplikacija Red vožnje - Novi Sad ne može biti odgovorna za eventualna kašnjenja ili izostanke autobusa.</string>
     <string name="about_app_updates_section_title">Redovno ažuriranje</string>
     <string name="about_app_updates_section_description">Aplikacija se redovno ažurira u skladu sa rasporedima dostupnim na zvaničnom sajtu JGSP-a, kako bi vi uvek imali pouzdane informacije.</string>
-    
-    <string name="about_app_language_section_title">Dobrodošli u Novi Sad</string>
+    <string name="about_app_language_section_title">Istražuj Novi Sad na tvom jeziku</string>
     <string name="about_app_language_section_description">Kako bismo omogućili širu upotrebu, aplikacija je dostupna na četiri jezika: srpskom, engleskom, ruskom i mađarskom. Na taj način, želimo da svako, bilo da je stanovnik ili turista, uživa u jednostavnom i praktičnom planiranju svog putovanja kroz Novi Sad.</string>
-    <string name="about_app_language_section_action">Promeni jezik</string>
-    
+    <string name="about_app_language_section_action">Izaberi jezik</string>
     <string name="about_app_issue_section_title">Prijavi grešku</string>
-    <string name="about_app_issue_section_description">Ukoliko primetite bilo kakvu grešku u aplikaciji, budite slobodni da nas kontaktirate putem email-a, a mi ćemo se potruditi da grešku otklonimo u što kraćem roku, ali imajte na umu da neke greške mogu biti poruzorkovane neispravnim radom JGSP sajta.</string>
-    <string name="about_app_issue_section_action">Prijavi grešku</string>
+    <string name="about_app_issue_section_description">Ako primetite bilo kakve probleme sa aplikacijom, slobodno nam se javite putem email-a. Trudićemo se da rešimo problem što je pre moguće. Imajte na umu da neki problemi mogu biti posledica podataka sa zvaničnog sajta JGSP Novi Sad, na koje se oslanjamo za rasporede i ažuriranja.</string>
+    <string name="about_app_issue_section_action">Kontaktiraj nas</string>
     <string name="about_app_issue_section_email_subject">Red Vožnje: Greška u aplikaciji</string>
-    
+    <string name="about_app_riders_section_title">Majstore, može zadnja!</string>
+    <string name="about_app_riders_section_description">Mi smo Crystal Pigeon, lokalna kompanija iz Novog Sada, i raduje nas što smo deo vaših svakodnevnih avantura! Trudimo se da vam kretanje kroz Novi Sad bude što lakše i prijatnije. Ako vam zatreba pomoć ili imate neke predloge, slobodno nam se obratite!</string>
+    <string name="about_app_riders_section_action">Upoznaj nas</string>
     <string name="about_app_footer">Powered by Crystal Pigeon</string>
-    
+
+    <!-- undefined-->
 </resources>

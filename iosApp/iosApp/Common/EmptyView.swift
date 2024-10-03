@@ -17,7 +17,7 @@ struct EmptyView: View {
                 .font(.system(size: UIScreen.main.bounds.width * 0.3))
                 .foregroundStyle(Color.textSecondary.opacity(0.5))
             
-            Text("Currently, you don't have favorite buses.\nClick on the '+' button and choose them")
+            Text(SharedRes.strings().home_no_data_message.localized)
                 .multilineTextAlignment(.center)
                 .font(.regular(16))
                 .foregroundStyle(Color.textSecondary)

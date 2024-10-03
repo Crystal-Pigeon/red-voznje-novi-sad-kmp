@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 struct BusHeaderView: View {
     
@@ -47,7 +48,7 @@ struct BusScheduleView: View {
                 .padding(.bottom, 4)
             
             if longTimetable.isEmpty {
-                    Text("There is no available schedule for selected day")
+                Text(SharedRes.strings().home_bus_no_data_message.localized)
                         .foregroundStyle(Color.textSecondary)
                         .font(.regular(16))
                         .padding(.bottom, 16)

@@ -1,41 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <!-- GENERAL ACTIONS-->
-    
-    <!-- HOME-->
     <string name="home_title">Timetable</string>
     <string name="home_workday">Workday</string>
     <string name="home_saturday">Saturday</string>
     <string name="home_sunday">Sunday</string>
-    <string name="home_no_data_message">Press + in order to choose your favorite bus lines</string>
-    
-    <!-- BUS LINES-->
+    <string name="home_no_data_message">You haven\'t selected any buses yet.\nTap the “+” to choose your favorite routes.</string>
+    <string name="home_bus_no_data_message">There is no available schedule for selected day</string>
     <string name="bus_lines_title">Bus Lines</string>
     <string name="bus_lines_urban">Urban</string>
     <string name="bus_lines_suburban">Suburban</string>
-    
-    <!-- ABOUT APP-->
     <string name="about_app_title">About</string>
-    
     <string name="about_app_about_app_section_title">About the app</string>
-    <string name="about_app_about_app_section_description">We developed the Bus Schedule - Novi Sad app to provide our fellow citizens and visitors of this beautiful city with a simple and easy way to check bus schedules and plan their journeys easily.
-        \n\nAll the data within the app is sourced directly from the official JGSP Novi Sad website, ensuring the information is accurate. However, the Bus Schedule - Novi Sad app is not responsible for any delays or cancellations of bus services.</string>
-    
+    <string name="about_app_about_app_section_description">We developed the Bus Schedule - Novi Sad app to provide our fellow citizens and visitors of this beautiful city with a simple and easy way to check bus schedules and plan their journeys easily.\n\nAll the data within the app is sourced directly from the official JGSP Novi Sad website, ensuring the information is accurate. However, the Bus Schedule - Novi Sad app is not responsible for any delays or cancellations of bus services.</string>
     <string name="about_app_updates_section_title">Regular updates</string>
     <string name="about_app_updates_section_description">The app is regularly updated in line with the schedules on the official JGSP website, so you always have the most reliable information.</string>
-    
     <string name="about_app_language_section_title">Explore Novi Sad in your language</string>
-    <string name="about_app_language_section_description">To make the app accessible to a broader audience, it is available in four languages: Serbian, English, Russian, and Hungarian. Whether you're a local or just visiting, we aim to make your journey planning through Novi Sad as simple and convenient as possible.</string>
-    <string name="about_app_language_section_action">Change language</string>
-    
+    <string name="about_app_language_section_description">To make the app accessible to a broader audience, it is available in four languages: Serbian, English, Russian, and Hungarian. Whether you\'re a local or just visiting, we aim to make your journey planning through Novi Sad as simple and convenient as possible.</string>
+    <string name="about_app_language_section_action">Choose language</string>
     <string name="about_app_issue_section_title">Report a problem</string>
-    <string name="about_app_issue_section_description">If you encounter any issues with the app, feel free to reach out to us via email. We’ll do our best to resolve the problem as quickly as possible. Please note that some issues may be caused by data from the official JGSP Novi Sad website, which we rely on for schedules and updates.</string>
+    <string name="about_app_issue_section_description">If you encounter any issues with the app, feel free to contact us. We’ll do our best to resolve the problem as quickly as possible. Please note that some issues may be caused by data from the official JGSP Novi Sad website, which we rely on for schedules and updates.</string>
     <string name="about_app_issue_section_action">Contact us</string>
     <string name="about_app_issue_section_email_subject">Red Vožnje: Problem with app</string>
-    
-    <string name="about_app_riders_section_title">The riders</string>
-    <string name="about_app_riders_section_description">We’re Crystal Pigeon, a company from Novi Sad, and we’re excited to be a part of your everyday adventures! Our goal is to make getting around Novi Sad as easy and enjoyable as possible. If you need help or have suggestions, feel free to reach out!</string>
-    <string name="about_app_riders_section_action">Visit us</string>
-    
+    <string name="about_app_riders_section_title">The Riders</string>
+    <string name="about_app_riders_section_description">We’re Crystal Pigeon, a company from Novi Sad, and we’re excited to be a part of your everyday adventures! We aim to make getting around Novi Sad as easy and enjoyable as possible. If you need help or have suggestions, feel free to reach out!</string>
+    <string name="about_app_riders_section_action">Meet us</string>
     <string name="about_app_footer">Powered by Crystal Pigeon</string>
+
+    <!-- undefined-->
 </resources>
