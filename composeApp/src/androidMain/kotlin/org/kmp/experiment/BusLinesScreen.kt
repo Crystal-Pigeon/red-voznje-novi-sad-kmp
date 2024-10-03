@@ -12,6 +12,7 @@ import androidx.compose.material.TabRow
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.kmp.ktor.Area
@@ -19,7 +20,7 @@ import org.kmp.ktor.BusLine
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun BusLines(vm: TestViewModel = koinViewModel()) {
+fun BusLinesScreen(vm: TestViewModel = koinViewModel()) {
     var busLines by remember { mutableStateOf<List<BusLine>>(emptyList()) }
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = {
@@ -38,7 +39,7 @@ fun BusLines(vm: TestViewModel = koinViewModel()) {
             selectedTabIndex = selectedTabIndex.value,
             modifier = Modifier.fillMaxWidth()
         ) {
-            AreaTabs.entries.forEachIndexed { index, currentTab ->
+            Area.entries.forEachIndexed { index, currentTab ->
                 Tab(
                     selected = selectedTabIndex.value == index,
                     modifier = Modifier.background(RedVoznjeTheme.colors.blue).clip(RoundedCornerShape(50)),
@@ -47,7 +48,7 @@ fun BusLines(vm: TestViewModel = koinViewModel()) {
                             pagerState.animateScrollToPage(currentTab.ordinal)
                         }
                     },
-                    text = { TextRegular(text = currentTab.title, color = RedVoznjeTheme.colors.primaryBackground) },
+                    text = { TextRegular(text = currentTab.getStringId().toString(context = LocalContext.current), color = RedVoznjeTheme.colors.primaryBackground, modifier = Modifier.padding(vertical = 8.dp)) },
                 )
             }
         }
@@ -55,18 +56,11 @@ fun BusLines(vm: TestViewModel = koinViewModel()) {
             LazyColumn {
                 items(busLines.filter { it.area == if (page == 0) Area.URBAN else Area.SUBURBAN }) { line ->
                     BusLineItem(line) { _, _ ->
-                        //TODO onClick
+                        //vm.cache.addToFavourites(line.id, line.area)
                     }
                     Spacer(Modifier.height(8.dp))
                 }
             }
         }
     }
-}
-
-enum class AreaTabs(
-    val title: String
-) {
-    URBAN("Urban"),
-    SUBURBAN("Suburban")
 }

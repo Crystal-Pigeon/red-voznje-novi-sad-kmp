@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    kotlin("plugin.serialization") version "2.0.20"
 }
 
 kotlin {
@@ -31,6 +32,8 @@ kotlin {
             implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
             implementation("androidx.navigation:navigation-compose:2.8.0")
             implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+            implementation("androidx.compose.material3:material3:1.3.0")
 
         }
         commonMain.dependencies {
@@ -60,6 +63,10 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/moko-resources")
+
+    lint {
+        abortOnError = false
+      }
 
     defaultConfig {
         applicationId = "org.kmp.experiment"

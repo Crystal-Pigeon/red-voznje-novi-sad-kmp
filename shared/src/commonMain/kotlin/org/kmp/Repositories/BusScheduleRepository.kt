@@ -25,7 +25,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
     private val cache = CacheManager()
 
     suspend fun getBusLinesByArea(areaType: Area, dayType: DayType): List<BusLine> {
-        val html = ktorClient.getBusLines(area = areaType, day = dayType, cache.scheduleStartDate ?: "2024-09-09")
+        val html = ktorClient.getBusLines(area = areaType, day = dayType, cache.scheduleStartDate ?: "2024-10-01")
         if(html == null) return emptyList()
         val document: Document = Ksoup.parse(html)
 
