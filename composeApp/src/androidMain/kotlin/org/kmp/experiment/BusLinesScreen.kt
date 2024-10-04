@@ -55,8 +55,13 @@ fun BusLinesScreen(vm: TestViewModel = koinViewModel()) {
         HorizontalPager(pagerState) { page ->
             LazyColumn {
                 items(busLines.filter { it.area == if (page == 0) Area.URBAN else Area.SUBURBAN }) { line ->
-                    BusLineItem(line) { _, _ ->
-                        //vm.cache.addToFavourites(line.id, line.area)
+                    BusLineItem(line) { id, isFavourite, area ->
+                        if(isFavourite){
+                            vm.cache.removeFromFavourites(id)
+                        }
+                        else{
+                            vm.cache.addToFavourites(id, area)
+                        }
                     }
                     Spacer(Modifier.height(8.dp))
                 }

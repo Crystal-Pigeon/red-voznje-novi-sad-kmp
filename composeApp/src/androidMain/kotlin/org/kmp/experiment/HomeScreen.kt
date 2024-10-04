@@ -30,7 +30,7 @@ fun HomeScreen(
     onNavigateToBusLines: () -> Unit,
     vm: TestViewModel = koinViewModel()
 ) {
-    var favourites by remember { mutableStateOf<Map<DayType, List<BusSchedule?>>>(mapOf()) }
+    var favourites by remember { mutableStateOf<Result<Map<DayType, List<BusSchedule?>>?>>(Result.success(null)) }
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = {
         3
@@ -71,17 +71,25 @@ fun HomeScreen(
                     )
                 }
             }
-            HorizontalPager(pagerState) { page ->
-                LazyColumn() {
-                    items(
-                        favourites[when (page) {
-                            0 -> DayType.WORKDAY
-                            1 -> DayType.SATURDAY
-                            else -> DayType.SUNDAY
-                        }]?.filterNotNull() ?: emptyList()
-                    ) {
-                        FavouriteCard(it)
+            when {
+                favourites.isSuccess ->{
+                    val favouritesData = favourites.getOrNull() ?: emptyMap()
+                    HorizontalPager(pagerState) { page ->
+                        LazyColumn() {
+                            items(
+                                favouritesData[when (page) {
+                                    0 -> DayType.WORKDAY
+                                    1 -> DayType.SATURDAY
+                                    else -> DayType.SUNDAY
+                                }]?.filterNotNull() ?: emptyList()
+                            ) {
+                                FavouriteCard(it)
+                            }
+                        }
                     }
+                }
+                favourites.isFailure ->{
+                    TextRegular(favourites.exceptionOrNull()?.localizedMessage ?: "Unknown error")
                 }
             }
         }
