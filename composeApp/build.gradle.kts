@@ -34,7 +34,7 @@ kotlin {
             implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
             implementation("androidx.compose.material3:material3:1.3.0")
-
+            implementation("androidx.core:core-splashscreen:1.0.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)

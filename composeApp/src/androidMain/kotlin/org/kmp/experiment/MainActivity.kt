@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import org.koin.core.context.startKoin
 import org.koin.android.ext.koin.androidContext
 import appModule
@@ -13,7 +14,15 @@ import org.kmp.viewModelModule
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
+
+        // Optionally, you can keep the splash screen for longer if needed
+        splashScreen.setKeepOnScreenCondition {
+            // Add a condition for when to remove the splash screen (like loading data)
+            false
+        }
         startKoin {
             androidContext(this@MainActivity)
             modules(appModule() + viewModelModule)
