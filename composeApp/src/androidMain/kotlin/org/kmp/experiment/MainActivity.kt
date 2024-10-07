@@ -18,9 +18,7 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
-        // Optionally, you can keep the splash screen for longer if needed
         splashScreen.setKeepOnScreenCondition {
-            // Add a condition for when to remove the splash screen (like loading data)
             false
         }
         startKoin {
