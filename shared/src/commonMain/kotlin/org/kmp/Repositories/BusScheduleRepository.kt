@@ -15,10 +15,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.*
 import org.kmp.Cache.CacheManager
 import org.kmp.experiment.SharedRes
 import org.kmp.ktor.*
@@ -90,9 +87,38 @@ class BusScheduleRepository()/* : KoinComponent*/ {
                 directionA = directionAName ?: "",
                 directionB = directionBName,
                 scheduleA = directionA,
-                scheduleB = directionB.ifEmpty { null }
+                scheduleB = directionB.ifEmpty { null },
+                shortenedScheduleA = createShortenedSchedule(directionA.toList()) ?: mutableListOf(),
+                shortenedScheduleB = createShortenedSchedule(directionB.toList())
             )
         }
+    }
+
+    private fun createShortenedSchedule(schedule: List<Pair<String, String>>?): MutableList<Pair<String, String>>? {
+        if(schedule == null) return null
+        var highlightedHourIndex: Int? = null
+        for (i in schedule.indices) {
+            if (Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).hour > schedule[i].first.toInt()
+            ) {
+                continue
+            }
+            highlightedHourIndex = i
+            break
+        }
+
+        val shortenedList = mutableListOf<Pair<String, String>>()
+        for (i in (highlightedHourIndex ?: 1) - 1..<schedule.size) {
+            if (shortenedList.size >= 3) {
+                break
+            } else {
+                try {
+                    shortenedList.add(schedule[i])
+                } catch (e: Exception) {
+                    continue
+                }
+            }
+        }
+        return shortenedList
     }
 
     private fun parseDirection(cell: Element?): Map<String, String> {

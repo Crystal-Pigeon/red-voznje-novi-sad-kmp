@@ -19,7 +19,13 @@ import org.kmp.Repositories.BusSchedule
 import java.time.LocalDateTime
 
 @Composable
-fun ScheduleColumn(direction: String, schedule: Map<String, String>, columnWidth: Int, isExpanded: Boolean) {
+fun ScheduleColumn(
+    direction: String,
+    schedule: Map<String, String>,
+    shortenedSchedule: MutableList<Pair<String, String>>,
+    columnWidth: Int,
+    isExpanded: Boolean
+) {
     //var textWidth by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier
@@ -36,31 +42,11 @@ fun ScheduleColumn(direction: String, schedule: Map<String, String>, columnWidth
             )
         }
         Column(modifier = Modifier.padding(top = 4.dp)) {
-            val scheduleToList = schedule.toList()
-            var highlightedHourIndex: Int? = null
-            for (i in scheduleToList.indices) {
-                if (LocalDateTime.now().hour > scheduleToList[i].first.toInt()) {
-                    continue
-                }
-                highlightedHourIndex = i
-                break
-            }
-
-            val shortenedList = mutableListOf<Pair<String, String>>()
-            for (i in (highlightedHourIndex ?: 1) - 1..<scheduleToList.size) {
-                if (shortenedList.size >= 3) {
-                    break
-                } else {
-                    try {
-                        shortenedList.add(scheduleToList[i])
-                    } catch (e: Exception) {
-                        continue
-                    }
-                }
-            }
             //val updatedSchedule = if (isExpanded) schedule else null
-            for (item in if (isExpanded) scheduleToList else shortenedList) {
-                Row(modifier = Modifier.wrapContentHeight().padding(top = 4.dp)) {
+            for (item in if (isExpanded) schedule.toList() else shortenedSchedule) {
+                Row(modifier = Modifier
+                    .wrapContentHeight()
+                    .padding(top = 4.dp)) {
                     TextRegular(
                         text = item.first + ":",
                         color = if (item.first.toInt() == LocalDateTime.now().hour) RedVoznjeTheme.colors.blue else RedVoznjeTheme.colors.primaryText,
@@ -128,11 +114,18 @@ fun FavouriteCard(scheduleData: BusSchedule) {
                     },
                 horizontalArrangement = Arrangement.SpaceAround
             ) {//spacedBy
-                ScheduleColumn(scheduleData.directionA, scheduleData.scheduleA, columnWidth / 2, isExpanded)
+                ScheduleColumn(
+                    direction = scheduleData.directionA,
+                    schedule = scheduleData.scheduleA,
+                    shortenedSchedule = scheduleData.shortenedScheduleA,
+                    columnWidth = columnWidth / 2,
+                    isExpanded = isExpanded
+                )
                 //Spacer(Modifier.width(16.dp))
                 ScheduleColumn(
                     scheduleData.directionB ?: "",
                     scheduleData.scheduleB ?: emptyMap(),
+                    scheduleData.shortenedScheduleB ?: mutableListOf(),
                     columnWidth / 2,
                     isExpanded
                 )

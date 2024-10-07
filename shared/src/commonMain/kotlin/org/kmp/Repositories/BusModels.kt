@@ -7,5 +7,7 @@ data class BusSchedule(
     val directionA: String,
     val directionB: String?,
     val scheduleA: Map<String, String>,
-    val scheduleB: Map<String, String>?
+    val scheduleB: Map<String, String>?,
+    val shortenedScheduleA: MutableList<Pair<String, String>>,
+    val shortenedScheduleB: MutableList<Pair<String, String>>?
 )
