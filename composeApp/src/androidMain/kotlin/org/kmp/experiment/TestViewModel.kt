@@ -7,11 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.kmp.Cache.CacheManager
+import org.kmp.Repositories.BusSchedule
 import org.kmp.Repositories.BusScheduleRepository
 import org.kmp.ktor.ApiResponse
+import org.kmp.ktor.DayType
+import org.kmp.ktor.ParsedResponse
 import org.kmp.ktor.ScheduleStartDateResponse
 
 class TestViewModel(val busScheduleRepository: BusScheduleRepository, val cache: CacheManager) : ViewModel() {
     var scheduleData by
     mutableStateOf<ApiResponse<List<ScheduleStartDateResponse>>?>(null)
+    var favourites by
+    mutableStateOf<ParsedResponse<Map<DayType, List<BusSchedule?>>>?>(null)
 }

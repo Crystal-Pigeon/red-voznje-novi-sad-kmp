@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.kmp.ktor.Area
 import org.kmp.ktor.BusLine
+import org.kmp.ktor.ParsedResponse
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun BusLinesScreen(vm: TestViewModel = koinViewModel()) {
-    var busLines by remember { mutableStateOf<List<BusLine>>(emptyList()) }
+    var busLines by remember { mutableStateOf<ParsedResponse<List<BusLine>>>(ParsedResponse.Success(emptyList())) }
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = {
         2
@@ -52,18 +53,25 @@ fun BusLinesScreen(vm: TestViewModel = koinViewModel()) {
                 )
             }
         }
-        HorizontalPager(pagerState) { page ->
-            LazyColumn {
-                items(busLines.filter { it.area == if (page == 0) Area.URBAN else Area.SUBURBAN }) { line ->
-                    BusLineItem(line) { id, isFavourite, area ->
-                        if(isFavourite){
-                            vm.cache.removeFromFavourites(id)
-                        }
-                        else{
-                            vm.cache.addToFavourites(id, area)
+        when(busLines){
+            is ParsedResponse.Error -> {
+                TextRegular(busLines.getErrorMessage()?.toString(LocalContext.current) ?: "")
+            }
+            is ParsedResponse.Success<*> -> {
+                HorizontalPager(pagerState) { page ->
+                    LazyColumn {
+                        items(busLines.getSuccessData()?.filter { it.area == if (page == 0) Area.URBAN else Area.SUBURBAN } ?: emptyList()) { line ->
+                            BusLineItem(line) { id, isFavourite, area ->
+                                if(isFavourite){
+                                    vm.cache.removeFromFavourites(id)
+                                }
+                                else{
+                                    vm.cache.addToFavourites(id, area)
+                                }
+                            }
+                            Spacer(Modifier.height(8.dp))
                         }
                     }
-                    Spacer(Modifier.height(8.dp))
                 }
             }
         }

@@ -48,7 +48,6 @@ fun RedVoznjeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    // Use the provided color palette depending on the theme
     val colorPalette = if (darkTheme) OnDarkCustomColorsPalette else OnLightCustomColorsPalette
 
     CompositionLocalProvider(LocalCustomColorsPalette provides colorPalette!!) {

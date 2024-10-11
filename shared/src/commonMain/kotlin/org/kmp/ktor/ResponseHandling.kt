@@ -1,11 +1,10 @@
 package org.kmp.ktor
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.plugins.*
-import io.ktor.client.request.*
+import dev.icerock.moko.resources.desc.StringDesc
+import getString
+import io.ktor.client.network.sockets.*
 import io.ktor.utils.io.errors.*
-import kotlinx.serialization.SerializationException
+import org.kmp.experiment.SharedRes
 
 sealed class ApiResponse<out T> {
     data class Success<T>(val data: T) : ApiResponse<T>()
@@ -25,5 +24,27 @@ suspend fun <T> handleApiResponse(apiCall: suspend () -> T): ApiResponse<T> {
     } catch (e: Throwable) {
         // You can add more error handling logic here (e.g., parsing HTTP errors)
         ApiResponse.Error(e.message ?: "Unknown error", e)
+    }
+}
+
+sealed class ParsedResponse<out T> {
+    data class Success<T>(val data: T) : ParsedResponse<T>()
+    data class Error(val message: StringDesc, val cause: Throwable? = null) : ParsedResponse<Nothing>()
+
+    fun isSuccess(): Boolean = this is Success<T>
+    fun isError(): Boolean = this is Error
+
+    fun getSuccessData(): T? = if (this is Success) this.data else null
+    fun getErrorMessage(): StringDesc? = if (this is Error) this.message else null
+}
+
+suspend fun <T> handleParseResponse(parseCall: suspend () -> T): ParsedResponse<T> {
+    return try {
+        val response = parseCall() // Execute the network call
+        ParsedResponse.Success(response)
+    } catch (e: IOException) {
+        ParsedResponse.Error(getString(SharedRes.strings.error_no_internet_connection))
+    } catch (e: Exception) {
+        ParsedResponse.Error(getString(SharedRes.strings.error_no_internet_connection))//TODO blame GSP
     }
 }

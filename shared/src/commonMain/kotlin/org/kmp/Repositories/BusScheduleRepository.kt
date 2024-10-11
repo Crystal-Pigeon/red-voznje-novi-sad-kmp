@@ -95,7 +95,7 @@ class BusScheduleRepository()/* : KoinComponent*/ {
     }
 
     private fun createShortenedSchedule(schedule: List<Pair<String, String>>?): MutableList<Pair<String, String>>? {
-        if(schedule == null) return null
+        if (schedule == null) return null
         var highlightedHourIndex: Int? = null
         for (i in schedule.indices) {
             if (Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).hour > schedule[i].first.toInt()
@@ -166,27 +166,26 @@ class BusScheduleRepository()/* : KoinComponent*/ {
             deferredResults.awaitAll()
         }
 
-    suspend fun getFavourites(): Result<Map<DayType, List<BusSchedule?>>?> = try {
-        coroutineScope {
-            val favourites = mutableListOf<Pair<Area, String>>()
-            cache.urbanFavourites.forEach {
-                favourites.add(Pair<Area, String>(Area.URBAN, it))
-            }
-            cache.suburbanFavourites.forEach {
-                favourites.add(Pair<Area, String>(Area.SUBURBAN, it))
-            }
-            val deferredResults: MutableMap<DayType, Deferred<List<BusSchedule?>>> = mutableMapOf()
-            DayType.entries.forEach {
-                deferredResults[it] = async {
-                    getSchedulesByDayType(busLines = favourites, dayType = it)
+    suspend fun getFavourites(): ParsedResponse<Map<DayType, List<BusSchedule?>>?> =
+        handleParseResponse {
+            coroutineScope {
+                val favourites = mutableListOf<Pair<Area, String>>()
+                cache.urbanFavourites.forEach {
+                    favourites.add(Pair<Area, String>(Area.URBAN, it))
                 }
+                cache.suburbanFavourites.forEach {
+                    favourites.add(Pair<Area, String>(Area.SUBURBAN, it))
+                }
+                val deferredResults: MutableMap<DayType, Deferred<List<BusSchedule?>>> = mutableMapOf()
+                DayType.entries.forEach {
+                    deferredResults[it] = async {
+                        getSchedulesByDayType(busLines = favourites, dayType = it)
+                    }
+                }
+                val result = deferredResults.mapValues { it.value.await() }
+                return@coroutineScope result
             }
-            val result = deferredResults.mapValues { it.value.await() }
-            Result.success(result)  // Return success result
         }
-    } catch (e: IOException) {
-        Result.failure(Exception(getString(SharedRes.strings.error_no_internet_connection).toString()))  // Return failure result
-    }
 
     suspend fun getScheduleStartDate(): ApiResponse<ScheduleStartDateResponseList> {
         return ktorClient.getScheduleStartDate()
@@ -205,17 +204,20 @@ class BusScheduleRepository()/* : KoinComponent*/ {
             deferredResults.awaitAll().flatten()
         }
 
-    suspend fun getBusLines(): List<BusLine> =
-        coroutineScope {
-            val deferredResults = mutableListOf<Deferred<List<BusLine>>>()
-            DayType.entries.forEach {
-                deferredResults.add(
-                    async {
-                        getBusLinesByDay(dayType = it)
-                    }
-                )
+    suspend fun getBusLines(): ParsedResponse<List<BusLine>> =
+        handleParseResponse {
+            coroutineScope {
+                val deferredResults = mutableListOf<Deferred<List<BusLine>>>()
+                DayType.entries.forEach {
+                    deferredResults.add(
+                        async {
+                            getBusLinesByDay(dayType = it)
+                        }
+                    )
+                }
+                val result = deferredResults.awaitAll().flatten().distinct()
+                    .sortedBy { it.id.filter { character -> character.isDigit() }.toInt() }
+                return@coroutineScope result
             }
-            deferredResults.awaitAll().flatten().distinct()
-                .sortedBy { it.id.filter { character -> character.isDigit() }.toInt() }
         }
 }

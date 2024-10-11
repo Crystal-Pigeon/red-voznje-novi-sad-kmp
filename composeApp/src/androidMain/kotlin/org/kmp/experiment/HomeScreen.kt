@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.kmp.Repositories.BusSchedule
 import org.kmp.ktor.DayType
+import org.kmp.ktor.ParsedResponse
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -30,7 +31,7 @@ fun HomeScreen(
     onNavigateToBusLines: () -> Unit,
     vm: TestViewModel = koinViewModel()
 ) {
-    var favourites by remember { mutableStateOf<Result<Map<DayType, List<BusSchedule?>>?>>(Result.success(null)) }
+    var favourites by remember { mutableStateOf<ParsedResponse<Map<DayType, List<BusSchedule?>>?>>(ParsedResponse.Success(null)) }
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = {
         3
@@ -41,7 +42,6 @@ fun HomeScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -72,8 +72,8 @@ fun HomeScreen(
                 }
             }
             when {
-                favourites.isSuccess ->{
-                    val favouritesData = favourites.getOrNull() ?: emptyMap()
+                favourites.isSuccess() ->{
+                    val favouritesData = favourites.getSuccessData() ?: emptyMap()
                     HorizontalPager(pagerState) { page ->
                         LazyColumn() {
                             items(
@@ -88,8 +88,8 @@ fun HomeScreen(
                         }
                     }
                 }
-                favourites.isFailure ->{
-                    TextRegular(favourites.exceptionOrNull()?.localizedMessage ?: "Unknown error")
+                favourites.isError() ->{
+                    TextRegular(favourites.getErrorMessage()?.toString(LocalContext.current) ?: "")
                 }
             }
         }
